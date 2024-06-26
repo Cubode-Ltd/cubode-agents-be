@@ -1,0 +1,16 @@
+# Django
+Django==4.2.8
+
+# Asynchronous Support & Async Django Rest Framework
+uvicorn[standard]
+
+# Redis
+django-redis==5.2.0
+
+# Celery Workers
+celery==5.3.6
+django-celery-results
+
+# WebSockets
+channels==4.1.0
+channels_redis==4.2.0

@@ -15,3 +15,5 @@ services:
       - 8000:8000
     env_file:
       - ./cubode_agent/docker/.env.dev.local
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings.development
