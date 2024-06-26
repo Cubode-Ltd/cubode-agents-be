@@ -6,18 +6,16 @@ Repository of Cubode Agent Backend. Architecture of Django + Celery + Redis + Ch
 ## Table of Contents
 
 - [Demo](#demo)
-- [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [API](#api)
 - [Contributing](#contributing)
 - [License](#license)
 
 
 ## Demo
 
-A live Cubode AI Agent  application is available at [https://ai.cubode.com/](https://ai.cubode.com/).
+A live Cubode AI Agent  application is available at [https://ai.cubode.com/](https://ai.cubode.com/). [In development]
 
 
 ## Prerequisites
