@@ -1,7 +1,7 @@
 
 # Cubode Back-End  AI agent 
 
-Cubode AI agent is ...
+Repository of Cubode Agent Backend. Architecture of Django + Celery + Redis + Channels for using AI Agents Asynchronously and serve them to the client when executed.
 
 ## Table of Contents
 
@@ -17,15 +17,8 @@ Cubode AI agent is ...
 
 ## Demo
 
-A live Cubode AI Agent  application is available at [https://cubode.com/](https://cubode.com/).
+A live Cubode AI Agent  application is available at [https://ai.cubode.com/](https://ai.cubode.com/).
 
-
-## Features
-
-- .... Fill with the features 
-- .... Fill with the features 
-- .... Fill with the features 
-- .... Fill with the features 
 
 ## Prerequisites
 - Docker: Ensure Docker is installed on your machine. You can download it from [here](https://www.docker.com/get-started).
@@ -36,44 +29,22 @@ A live Cubode AI Agent  application is available at [https://cubode.com/](https:
 
    ```bash
    git clone .....
-
-2. Navigate to the project directory: 
-
-     ```bash
-   cd  Main directory 
-
-3. Run the Docker image: 
+ 
+2. Run the Docker image: 
 
      ```bash
-   docker-compose up --build
+   docker compose -f docker.dev.yml up --build
 
 4. Stop the Docker image: 
 
      ```bash
-   docker-compose up --build
+   docker compose f docker.dev.yml down
 
 
 ## Usage
 
 
 1. Open your web browser and navigate to http://localhost:8000 to access the Cubode AI Agent  application.
-
-
-## API
-
-The Cubode AI Agent  application interacts with the following endpoints provided by the external API:
-
-- **Retrieve Topics**
-  - Endpoint: `....`
-  - Description: ... Fill the specs ... 
-
-- **Retrieve Articles**
-  - Endpoint: `.....`
-  - Description: ... Fill the specs ... 
-
-
-
-For detailed API documentation, refer to [API Documentation](###).
 
 
 ## Contributing
