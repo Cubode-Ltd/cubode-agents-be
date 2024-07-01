@@ -17,3 +17,24 @@ services:
       - ./cubode_agent/docker/.env.dev.local
     environment:
       - DJANGO_SETTINGS_MODULE=core.settings.development
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: agent_cubode_redis_development
+
+  celery:
+    container_name: agent_cubode_celery
+    build:
+      context: ./cubode_agent
+      dockerfile: ./docker/Dockerfile.celery.local
+    command: celery --app=core worker -l INFO
+    volumes:
+      - ./cubode_agent:/cubode_agent
+    #   - ./cubode/resources/webtemplates/development:/cubode/resources/webtemplates/development
+    env_file:
+      - ./cubode_agent/docker/.env.celery.local
+    depends_on:
+      - redis
+      - web
