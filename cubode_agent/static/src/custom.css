@@ -32,6 +32,14 @@
 .border-custom {
   border-color: #E6E6E6;
 }
+.sign-up-btn{
+  background: #787878;
+
+}
+.continue-google{
+  background: #F3F3F3;
+
+}
 
 .text-sign{
   font-family: Poppins;
@@ -39,8 +47,15 @@
   font-weight: 400;
   line-height: 30px;
   text-align: center;
-  color: #2D2D2A;
-
-  
+  color: #2D2D2A; 
 }
-  
+
+/* .text-signup{
+font-family: Poppins;
+font-size: 24px;
+font-weight: 600;
+line-height: 30px;
+text-align: center;
+color: #2D2D2A; 
+}
+   */
