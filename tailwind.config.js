@@ -2,7 +2,8 @@
 module.exports = {
   mode: 'jit',
   content: [
-    './cubode_agent/assets/html/*.html'
+    "./cubode_agent/assets/html/*.{html,js}",
+    "./cubode_agent/assets/**/*.{html,js}"
   ],
   theme: {
     colors: {

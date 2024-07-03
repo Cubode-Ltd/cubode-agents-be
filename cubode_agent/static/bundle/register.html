@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if is_signup %}Create Account{% else %}Sign In{% endif %}</title>
     {% render_bundle 'register' 'css' %}
-<script defer src="register.bundle.js"></script></head>
+    {% render_bundle 'register' 'js' %}
+<script defer src="register.bundle.js"></script><link href="register.css" rel="stylesheet"></head>
 
 <body class="bg-white font-poppins flex items-center justify-center min-h-screen">
     <div class="border border-solid px-48 py-14 border-custom m-18 rounded-sm">

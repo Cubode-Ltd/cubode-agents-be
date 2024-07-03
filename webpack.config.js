@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
@@ -29,7 +30,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
       },
     ],
   },
@@ -69,6 +74,9 @@ module.exports = {
       patterns: [
         { from: 'cubode_agent/assets/svg', to: 'svg' },
       ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
     }),
 ],
 watchOptions: {
