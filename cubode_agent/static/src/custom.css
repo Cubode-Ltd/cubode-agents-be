@@ -33,8 +33,16 @@
   border-color: #E6E6E6;
 }
 .sign-up-btn{
-  background: #787878;
+  background: #1e395cff;
 
+}
+.text-dark-blue{
+  color: #1e395cff;
+
+}
+
+.lightblue{
+ background:  #80A5D6;
 }
 .continue-google{
   background: #F3F3F3;
@@ -50,12 +58,14 @@
   color: #2D2D2A; 
 }
 
-/* .text-signup{
-font-family: Poppins;
-font-size: 24px;
-font-weight: 600;
-line-height: 30px;
-text-align: center;
-color: #2D2D2A; 
+#sidebar {
+  width: auto;
+  /* Initial width */
+  min-width: 3rem;
+  /* Ensure minimum width for the menu icon */
 }
-   */
+
+#sidebar.w-64 {
+  width: 16rem;
+  /* Expanded width */
+}

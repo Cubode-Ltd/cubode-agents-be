@@ -5,7 +5,7 @@ from django.shortcuts import render
     
 class MainView(View):
     def get(self,request):
-            return render(request,"home.html",{'is_logged':False})
+            return render(request,"home.html",{'is_logged':True,'upload':False})
     
 
 class Registration(View):

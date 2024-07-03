@@ -26,8 +26,14 @@
                     <label for="email" class="block text-base font-normal leading-6 text-[#2D2D2A]">Email
                         Address</label>
                     <input type="email" id="email"
-                        class="w-full p-2 px-4 border text-xs font-normal leading-5 text-[#2D2D2AB2] rounded mt-1"
+                        class="w-full mb-3 p-2 px-4 border text-xs font-normal leading-5 text-[#2D2D2AB2] rounded mt-1"
                         placeholder="Enter email address" required>
+                    <label for="password" class="block text-base font-normal leading-6 text-[#2D2D2A]">Password
+                        </label>
+                    <input type="password" id="password"
+                        class="w-full p-2 px-4 border text-xs font-normal leading-5 text-[#2D2D2AB2] rounded mt-1"
+                        placeholder="Enter the password " required>
+
                 </div>
                 {% if is_signup %}
                 <button type="submit"
@@ -39,16 +45,18 @@
             </form>
             <div class="text-center mt-8">
                 {% if is_signup %}
-                <p class="text-sm font-normal leading-5 text-[#2D2D2A]">Already have an account? <a href="" class="font-extrabold">Login</a></p>
+                <p class="text-sm font-normal leading-5 text-[#2D2D2A]">Already have an account? <a href=""
+                        class="font-extrabold">Login</a></p>
                 {% else %}
-                <p class="text-sm font-normal leading-5 text-[#2D2D2A]">Don't have an account? <a href="" class="font-extrabold">Sign Up</a></p>
+                <p class="text-sm font-normal leading-5 text-[#2D2D2A]">Don't have an account? <a href=""
+                        class="font-extrabold">Sign Up</a></p>
                 {% endif %}
             </div>
             <div class="flex items-center my-10">
                 <hr class="flex-grow border-t border-gray-300">
             </div>
             <button
-                class="w-full continue-google text-base font-medium leading-6 text-center py-2 rounded flex items-center justify-center">
+                class="w-full border text-base font-medium leading-6 text-center py-2 rounded flex items-center justify-center">
                 Continue with Google
             </button>
         </div>

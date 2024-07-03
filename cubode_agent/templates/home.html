@@ -1,78 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+
+<head>
     {%load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link href="{% static 'src/styles.css' %}" rel="stylesheet">
     <link href="{% static 'src/custom.css' %}" rel="stylesheet">
 
 </head>
+
 <body class="bg-white font-poppins">
-   
+
     <header class=" mt-4 p-4 flex justify-between items-center">
         <div class="flex items-center space-x-2">
-            <img src="{% static 'svg/cubodeLogo1.svg' %}" alt="CubodeLogo" >
+            <img src="{% static 'cubodeLogo.svg' %}" alt="CubodeLogo">
         </div>
-        <div class="flex">
-            <button class="bg-customGrayLight pr-10 text-gray-700 py-2 px-4 rounded-l-md inline-flex items-center">
-                <img src="{% static 'clip.svg' %}" alt="clip" width="20" height="20">
-                <span class="ml-1">Upload csv or excel file</span>
+        <div class="flex rounded-3xl bg-customGrayLight">
+            <button
+                class="text-sm custom-base custom-7  pr-10 text-custom_Black opacity-70 py-2 px-4 rounded-l-3xl inline-flex items-center">
+                <img src="{% static 'clip.svg' %}" alt="clip" width="17" height="17">
+                <span class="ml-2">Upload csv or excel file</span>
             </button>
-            <button class="bg-customGray text-white py-2 px-4 rounded-r-md inline-flex items-center">
+            <button
+                class="bg-custom_Black text-white py-2 px-4 rounded-3xl inline-flex items-center text-sm custom-base custom-7  text-center">
                 <span class="mr-2">Start Generating</span>
-                <img src="{% static 'svg/star.svg' %}" alt="clip" width="20" height="20">
+                <img src="{% static 'svg/star.svg' %}" alt="clip" class="mr-5" width="15" height="15">
             </button>
         </div>
         <div class="flex space-x-4">
             <!-- <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
             <a href="{% url 'login' %}" class="text-sign">Sign in</a> -->
             {% if is_logged %}
-                <a href="#" class="text-sign">Invite</a>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sign ml-4">User</span>
-                    <img src="{% static 'svg/user_icon.svg' %}" alt="User Icon" class="w-7 h-7 rounded-full p-1 bg-customGray
-                    ]">
-                </div>
+            <a href="#" class="text-sign">Invite</a>
+            <div class="flex items-center space-x-2">
+                <span class="text-sign ml-4">User</span>
+                <img src="{% static 'svg/user_icon.svg' %}" alt="User Icon"
+                    class="w-7 h-7 rounded-full p-1 bg-customGray">
+            </div>
             {% else %}
-                <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
-                <a href="{% url 'login' %}" class="text-sign">Sign in</a>
+            <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
+            <a href="{% url 'login' %}" class="text-sign">Sign in</a>
             {% endif %}
         </div>
     </header>
     <main class="p-4">
         <div class="border border-solid border-custom p-6 min-h-screen rounded-sm">
-            <!-- Content goes here -->
-            <div class="flex items-center justify-between mb-4">
-                <button class="flex items-center space-x-2">
-                    <img src="{% static 'svg/menu_icon.svg' %}" alt="Menu Icon" class="w-6 h-6">
-                </button>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-700">Regenerate</a>
-                    <a href="#" class="text-gray-700">Export</a>
-                    <a href="#" class="text-gray-700">Share</a>
+            {% if upload %}
+            <div class="flex">
+                <!-- Aside with SVG and vertical line -->
+                <aside id="sidebar"
+                    class="flex flex-col items-center mr-6 border-r border-custom pr-6 transition-all duration-300 ease-in-out">
+                    <div class="flex justify-between items-center w-full">
+                        <button id="menu-button" class="flex items-center">
+                            <img src="{% static 'svg/menu_icon.svg' %}" alt="Menu Icon" class="w-6 h-6">
+                        </button>
+                        <button id="close-button" class="hidden">
+                            <img src="{% static 'svg/close_icon.svg' %}" alt="Close Icon" class="w-4 h-4">
+                        </button>
+                    </div>
+                    <div id="expanded-content" class="hidden mt-4 w-full">
+                        <!-- Add your additional content here -->
+                    </div>
+                </aside>
+
+                <!-- Main content area -->
+                <div class="flex-1">
+                    <div id="content" class="flex items-center justify-between mb-8 ">
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-sign opacity-70">Regenerate</a>
+                            <a href="#" class="text-sign opacity-70">Export</a>
+                            <a href="#" class="text-sign opacity-70">Share</a>
+                        </div>
+                        <div class="flex space-x-9 mr-4">
+                            <button class="">
+                                <img src="{% static 'svg/prev_icon.svg' %}" alt="Previous" class="w-6 h-6">
+                            </button>
+                            <button class="">
+                                <img src="{% static 'svg/next_icon.svg' %}" alt="Next" class="w-6 h-6">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-customGrayLight min-h-screen rounded-sm">
+                        <!-- Placeholder for the main content area -->
+                    </div>
+                    <div class="text-right text-[#2D2D2AB2] opacity-70 mt-4 text-xs font-normal leading-7">
+                        Please check the files for errors before an upload. Plots generated by Cubode are not...
+                    </div>
                 </div>
-                <div class="flex space-x-2">
-                    <button class="text-gray-700">
-                        <img src="{% static 'svg/prev_icon.svg' %}" alt="Previous" class="w-6 h-6">
-                    </button>
-                    <button class="text-gray-700">
-                        <img src="{% static 'svg/next_icon.svg' %}" alt="Next" class="w-6 h-6">
-                    </button>
-                </div>
-            </div>
-            <div class="bg-customGrayLight min-h-[600px] rounded-sm">
-                <!-- Placeholder for the main content area -->
-                 <h1>ciao</h1>
-            </div>
-        </div>
-        <div class="text-center text-gray-500 mt-4 text-sm">
-            Please check the files for errors before an upload. Plots generated by Cubode are not...
-        </div>
+            </div>{% endif %}
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            const menuButton = document.getElementById('menu-button');
+            const closeButton = document.getElementById('close-button');
+            const expandedContent = document.getElementById('expanded-content');
+
+            menuButton.addEventListener('click', function () {
+                sidebar.classList.add('w-64'); // Expand sidebar width
+                // menuButton.classList.add('hidden');
+                closeButton.classList.remove('hidden');
+                expandedContent.classList.remove('hidden');
+            });
+
+            closeButton.addEventListener('click', function () {
+                sidebar.classList.remove('w-64'); // Collapse sidebar width
+                menuButton.classList.remove('hidden');
+                closeButton.classList.add('hidden');
+                expandedContent.classList.add('hidden');
+            });
+        });
+    </script>
 </body>
+
 </html>
