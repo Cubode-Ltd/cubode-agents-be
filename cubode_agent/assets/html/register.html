@@ -1,0 +1,63 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_signup %}Create Account{% else %}Sign In{% endif %}</title>
+    {% render_bundle 'register' 'css' %}
+</head>
+
+<body class="bg-white font-poppins flex items-center justify-center min-h-screen">
+    <div class="border border-solid px-48 py-14 border-custom m-18 rounded-sm">
+        <div class="bg-white p-8 rounded-lg w-full max-w-sm">
+            <div class="flex justify-center mb-6">
+                <img src="{% static 'svg/cubode_logo.svg' %}" alt="Cubode">
+            </div>
+            <h2 class="text-2xl font-normal leading-7 text-center my-12">
+                {% if is_signup %}Create a new account{% else %}Sign in to your account{% endif %}
+            </h2>
+            <form>
+                <div class="mb-4">
+                    <label for="email" class="block text-base font-normal leading-6 text-[#2D2D2A]">Email
+                        Address</label>
+                    <input type="email" id="email"
+                        class="w-full mb-3 p-2 px-4 border text-xs font-normal leading-5 text-[#2D2D2AB2] rounded mt-1"
+                        placeholder="Enter email address" required>
+                    <label for="password" class="block text-base font-normal leading-6 text-[#2D2D2A]">Password
+                        </label>
+                    <input type="password" id="password"
+                        class="w-full p-2 px-4 border text-xs font-normal leading-5 text-[#2D2D2AB2] rounded mt-1"
+                        placeholder="Enter the password " required>
+
+                </div>
+                {% if is_signup %}
+                <button type="submit" class="w-full sign-up-btn text-base font-medium leading-6 text-center text-white py-2 rounded">Continue</button>
+                {% else %}
+                <button type="submit" class="w-full sign-up-btn text-base font-medium leading-6 text-center text-white py-2 rounded">Continue</button>
+                {% endif %}
+            </form>
+            <div class="text-center mt-8">
+                {% if is_signup %}
+                <p class="text-sm font-normal leading-5 text-[#2D2D2A]">Already have an account? <a href=""
+                        class="font-extrabold">Login</a></p>
+                {% else %}
+                <p class="text-sm font-normal leading-5 text-[#2D2D2A]">Don't have an account? <a href=""
+                        class="font-extrabold">Sign Up</a></p>
+                {% endif %}
+            </div>
+            <div class="flex items-center my-10">
+                <hr class="flex-grow border-t border-gray-300">
+            </div>
+            <button
+                class="w-full border text-base font-medium leading-6 text-center py-2 rounded flex items-center justify-center">
+                Continue with Google
+            </button>
+        </div>
+    </div>
+</body>
+{% render_bundle 'register' 'js' %}
+</html>

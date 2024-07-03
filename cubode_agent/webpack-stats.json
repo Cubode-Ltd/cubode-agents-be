@@ -1,0 +1,40 @@
+{
+  "status": "done",
+  "assets": {
+    "home.bundle.js": {
+      "name": "home.bundle.js",
+      "path": "/media/dark/Storage13/CUBODE/SRC/CUBODE_AGENTS_BE/cubode-agents-be/cubode_agent/static/bundle/home.bundle.js"
+    },
+    "home.html": {
+      "name": "home.html",
+      "path": "/media/dark/Storage13/CUBODE/SRC/CUBODE_AGENTS_BE/cubode-agents-be/cubode_agent/static/bundle/home.html"
+    },
+    "login.bundle.js": {
+      "name": "login.bundle.js",
+      "path": "/media/dark/Storage13/CUBODE/SRC/CUBODE_AGENTS_BE/cubode-agents-be/cubode_agent/static/bundle/login.bundle.js"
+    },
+    "login.html": {
+      "name": "login.html",
+      "path": "/media/dark/Storage13/CUBODE/SRC/CUBODE_AGENTS_BE/cubode-agents-be/cubode_agent/static/bundle/login.html"
+    },
+    "register.bundle.js": {
+      "name": "register.bundle.js",
+      "path": "/media/dark/Storage13/CUBODE/SRC/CUBODE_AGENTS_BE/cubode-agents-be/cubode_agent/static/bundle/register.bundle.js"
+    },
+    "register.html": {
+      "name": "register.html",
+      "path": "/media/dark/Storage13/CUBODE/SRC/CUBODE_AGENTS_BE/cubode-agents-be/cubode_agent/static/bundle/register.html"
+    }
+  },
+  "chunks": {
+    "home": [
+      "home.bundle.js"
+    ],
+    "login": [
+      "login.bundle.js"
+    ],
+    "register": [
+      "register.bundle.js"
+    ]
+  }
+}

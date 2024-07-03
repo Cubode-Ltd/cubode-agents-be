@@ -1,22 +1,21 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if is_signup %}Create Account{% else %}Sign In{% endif %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <link href="{% static 'src/styles.css' %}" rel="stylesheet">
-    <link href="{% static 'src/custom.css' %}" rel="stylesheet">
-</head>
+    {% render_bundle 'register' 'css' %}
+<script defer src="register.bundle.js"></script></head>
 
 <body class="bg-white font-poppins flex items-center justify-center min-h-screen">
     <div class="border border-solid px-48 py-14 border-custom m-18 rounded-sm">
         <div class="bg-white p-8 rounded-lg w-full max-w-sm">
             <div class="flex justify-center mb-6">
-                <img src="{% static 'cubodeLogo.svg' %}" alt="Cubode">
+                <img src="{% static 'svg/cubode_logo.svg' %}" alt="Cubode">
             </div>
             <h2 class="text-2xl font-normal leading-7 text-center my-12">
                 {% if is_signup %}Create a new account{% else %}Sign in to your account{% endif %}
@@ -36,11 +35,9 @@
 
                 </div>
                 {% if is_signup %}
-                <button type="submit"
-                    class="w-full sign-up-btn text-base font-medium leading-6 text-center text-white py-2 rounded">Continue</button>
+                <button type="submit" class="w-full sign-up-btn text-base font-medium leading-6 text-center text-white py-2 rounded">Continue</button>
                 {% else %}
-                <button type="submit"
-                    class="w-full sign-up-btn text-base font-medium leading-6 text-center text-white py-2 rounded">Continue</button>
+                <button type="submit" class="w-full sign-up-btn text-base font-medium leading-6 text-center text-white py-2 rounded">Continue</button>
                 {% endif %}
             </form>
             <div class="text-center mt-8">
@@ -62,5 +59,5 @@
         </div>
     </div>
 </body>
-
+{% render_bundle 'register' 'js' %}
 </html>

@@ -1,5 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .font-poppins {
-    font-family: 'Poppins', sans-serif;}
+    font-family: 'Poppins', sans-serif;
+}
 
 .bg-customGray {
     background-color: #7E7E7E;
@@ -7,7 +13,6 @@
 
 .bg-customGrayLight {
     background-color: #F3F3F3;
-
 }
 
 .text-upload{

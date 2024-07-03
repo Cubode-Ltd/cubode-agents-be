@@ -1,29 +1,26 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    {%load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link href="{% static 'src/styles.css' %}" rel="stylesheet">
-    <link href="{% static 'src/custom.css' %}" rel="stylesheet">
-
-</head>
+    <title>Cubode | Build it</title>
+    {% render_bundle 'login' 'css' %}
+<script defer src="login.bundle.js"></script></head>
 
 <body class="bg-white font-poppins">
-
     <header class=" mt-4 p-4 flex justify-between items-center">
         <div class="flex items-center space-x-2">
-            <img src="{% static 'cubodeLogo.svg' %}" alt="CubodeLogo">
+            <img src="{% static 'svg/cubode_logo.svg' %}" alt="CubodeLogo">
         </div>
+        
         <div class="flex rounded-3xl bg-customGrayLight">
             <button
                 class="text-sm custom-base custom-7  pr-10 text-custom_Black opacity-70 py-2 px-4 rounded-l-3xl inline-flex items-center">
-                <img src="{% static 'clip.svg' %}" alt="clip" width="17" height="17">
+                <img src="{% static 'svg/clip.svg' %}" alt="clip" width="17" height="17">
                 <span class="ml-2">Upload csv or excel file</span>
             </button>
             <button
@@ -32,6 +29,7 @@
                 <img src="{% static 'svg/star.svg' %}" alt="clip" class="mr-5" width="15" height="15">
             </button>
         </div>
+
         <div class="flex space-x-4">
             <!-- <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
             <a href="{% url 'login' %}" class="text-sign">Sign in</a> -->
@@ -48,6 +46,7 @@
             {% endif %}
         </div>
     </header>
+
     <main class="p-4">
         <div class="border border-solid border-custom p-6 min-h-screen rounded-sm">
             {% if upload %}
@@ -95,28 +94,6 @@
             </div>{% endif %}
         </div>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const sidebar = document.getElementById('sidebar');
-            const menuButton = document.getElementById('menu-button');
-            const closeButton = document.getElementById('close-button');
-            const expandedContent = document.getElementById('expanded-content');
-
-            menuButton.addEventListener('click', function () {
-                sidebar.classList.add('w-64'); // Expand sidebar width
-                // menuButton.classList.add('hidden');
-                closeButton.classList.remove('hidden');
-                expandedContent.classList.remove('hidden');
-            });
-
-            closeButton.addEventListener('click', function () {
-                sidebar.classList.remove('w-64'); // Collapse sidebar width
-                menuButton.classList.remove('hidden');
-                closeButton.classList.add('hidden');
-                expandedContent.classList.add('hidden');
-            });
-        });
-    </script>
 </body>
-
+{% render_bundle 'login' 'js' %}
 </html>
