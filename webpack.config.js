@@ -1,6 +1,8 @@
 const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 module.exports = {
   entry: {
@@ -51,8 +53,21 @@ module.exports = {
       chunks: ['home'],
     }),
     new webpack.WatchIgnorePlugin({
-      paths: [/node_modules/],
+      paths: [
+        path.resolve(__dirname, 'node_modules'),
+      ],
+    }),
+    new WebpackShellPluginNext({
+      onBuildEnd: {
+        scripts: ['docker exec agent_cubode_development python manage.py collectstatic --no-input'],
+        blocking: false,
+        parallel: true,
+      },
     }),
 ],
-  mode: 'development',
+watchOptions: {
+  poll: 1000, // Check for changes every second
+  ignored: /node_modules/,
+},
+mode: 'development',
 };
