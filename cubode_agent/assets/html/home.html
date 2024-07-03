@@ -29,15 +29,15 @@
                 <img src="{% static 'svg/star.svg' %}" alt="clip" class="mr-5" width="15" height="15">
             </button>
         </div>
+
         <div class="flex space-x-4">
             <!-- <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
             <a href="{% url 'login' %}" class="text-sign">Sign in</a> -->
             {% if is_logged %}
-            <a href="#" class="text-sign">Invite</a>
+            <a href="#" class="text-sign border px-3 py-1">Invite</a>
             <div class="flex items-center space-x-2">
-                <span class="text-sign ml-4">User</span>
-                <img src="{% static 'svg/user_icon.svg' %}" alt="User Icon"
-                    class="w-7 h-7 rounded-full p-1 bg-customGray">
+                <img src="{% static 'svg/moon.svg' %}" alt="User Icon"
+                    class="w-8 h-8 ">
             </div>
             {% else %}
             <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
