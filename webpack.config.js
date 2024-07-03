@@ -3,6 +3,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -63,6 +64,11 @@ module.exports = {
         blocking: false,
         parallel: true,
       },
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'cubode_agent/assets/svg', to: 'svg' },
+      ],
     }),
 ],
 watchOptions: {

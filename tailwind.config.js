@@ -1,13 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  purge: [
-    './cubode_agent/assets/**/*.html',
-    './cubode_agent/assets/**/*.js',
-    './cubode_agent/assets/**/*.jsx',
-    './cubode_agent/assets/**/*.ts',
-    './cubode_agent/assets/**/*.tsx',
-    './cubode_agent/assets/**/*.vue',
+  content: [
+    './cubode_agent/assets/html/*.html'
   ],
   theme: {
     colors: {
