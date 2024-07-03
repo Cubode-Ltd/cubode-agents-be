@@ -20,27 +20,45 @@
         <div class="flex items-center space-x-2">
             <img src="{% static 'cubodeLogo.svg' %}" alt="CubodeLogo">
         </div>
-        <div class="flex rounded-3xl bg-customGrayLight">
-            <button
-                class="text-sm custom-base custom-7  pr-10 text-custom_Black opacity-70 py-2 px-4 rounded-l-3xl inline-flex items-center">
-                <img src="{% static 'clip.svg' %}" alt="clip" width="17" height="17">
-                <span class="ml-2">Upload csv or excel file</span>
-            </button>
-            <button
-                class="bg-custom_Black text-white py-2 px-4 rounded-3xl inline-flex items-center text-sm custom-base custom-7  text-center">
-                <span class="mr-2">Start Generating</span>
-                <img src="{% static 'svg/star.svg' %}" alt="clip" class="mr-5" width="15" height="15">
-            </button>
+        <div>
+            
+            <div class="flex ">
+                <div  class="rounded-3xl bg-customGrayLight">
+                    <button
+                        class="text-sm custom-base custom-7  pr-10 text-custom_Black opacity-70 py-2 px-4 rounded-l-3xl inline-flex items-center">
+                        <img src="{% static 'clip.svg' %}" alt="clip" width="17" height="17">
+                        <span class="ml-2">Upload csv or excel file</span>
+                        <img class="bg-custom_Gray rounded-full ml-6 " src="{% static 'svg/clock.svg' %}" alt="clip" width="21"
+                            height="21">
+                    </button>
+                    <button
+                        class="bg-custom_Black text-white py-3 px-4 rounded-3xl inline-flex items-center text-sm custom-base custom-7  text-center">
+                        <span class="mx-5">Start Generating</span>
+                        <img src="{% static 'svg/star.svg' %}" alt="clip" class="mr-5" width="15" height="15">
+                    </button>
+                    
+                </div>
+                {% if is_logged %}
+                <div class="flex rounded-3xl bg-custom_Gray items-center px-2 py-1 ml-3 space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+                        <path
+                            d="M20 10.75C20 10.336 19.664 10 19.25 10H0.75C0.336 10 0 10.336 0 10.75C0 11.164 0.336 11.5 0.75 11.5H19.25C19.664 11.5 20 11.164 20 10.75ZM20 5.75C20 5.336 19.664 5 19.25 5H0.75C0.336 5 0 5.336 0 5.75C0 6.164 0.336 6.5 0.75 6.5H19.25C19.664 6.5 20 6.164 20 5.75ZM20 0.75C20 0.336 19.664 0 19.25 0H0.75C0.336 0 0 0.336 0 0.75C0 1.164 0.336 1.5 0.75 1.5H19.25C19.664 1.5 20 1.164 20 0.75Z"
+                            fill="#2D2D2A" />
+                    </svg>
+                    <img src="{% static 'svg/maskGroup.svg' %}" alt="clip" >
+                </div>
+                {% endif %}
+            </div>
         </div>
+
         <div class="flex space-x-4">
             <!-- <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
             <a href="{% url 'login' %}" class="text-sign">Sign in</a> -->
             {% if is_logged %}
-            <a href="#" class="text-sign">Invite</a>
+            <a href="#" class="text-sign border px-3 py-1">Invite</a>
             <div class="flex items-center space-x-2">
-                <span class="text-sign ml-4">User</span>
-                <img src="{% static 'svg/user_icon.svg' %}" alt="User Icon"
-                    class="w-7 h-7 rounded-full p-1 bg-customGray">
+                <img src="{% static 'svg/moon.svg' %}" alt="User Icon"
+                    class="w-8 h-8 ">
             </div>
             {% else %}
             <a href="{% url 'registration' %}" class="text-sign">Sign up</a>
