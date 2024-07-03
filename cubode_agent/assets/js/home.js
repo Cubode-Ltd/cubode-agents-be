@@ -1,2 +1,2 @@
-import '../css/tailwind.css';
+import '../css/tailwind.css'; 
 console.log('Home page JavaScript loaded.');
