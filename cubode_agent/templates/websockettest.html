@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <div id="messages"></div>
+    <script>
+        // Create a new WebSocket connection
+        var ws = new WebSocket('ws://localhost:8000/ws/agent/');
+
+        // Define the onopen event handler
+        ws.onopen = function() {
+            console.log('WebSocket connection opened');
+            // Send a message every 2 seconds
+            setInterval(function() {
+                ws.send(JSON.stringify({
+                    'message': 'Hello, world! ' + new Date().toLocaleTimeString()
+                }));
+            }, 2000);
+        };
+
+        // Define the onmessage event handler
+        ws.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            var messagesDiv = document.getElementById('messages');
+            if (data.message) {
+                // Display the received message
+                messagesDiv.innerHTML += '<p>Received message with status: ' + data.status +'</br>';
+
+                messagesDiv.innerHTML += '<p>Message data: ' + data.message +'</br>';
+
+            } else if (data.time) {
+                // Display the received time
+                messagesDiv.innerHTML += '<p>Server time: ' + data.time + '</p>';
+            }
+        };
+
+        // Define the onclose event handler
+        ws.onclose = function() {
+            console.log('WebSocket connection closed');
+        };
+
+        // Define the onerror event handler
+        ws.onerror = function(error) {
+            console.log('WebSocket error:', error);
+        };
+    </script>
+</body>
+</html>
