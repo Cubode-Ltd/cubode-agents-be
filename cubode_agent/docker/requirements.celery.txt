@@ -26,15 +26,6 @@ uvicorn[standard]
 whitenoise==6.6.0 # To serve locally files with async server
 adrf==0.1.2
 
-# AI
-jsbeautifier==1.14.11
-langchain==0.1.1
-openai==1.8.0
-esprima==4.0.1
-langchain-openai
-langchain_community
-langchain_core
-langchain_anthropic
 # Rest and OAuth
 django-allauth==0.59.0
 django-cors-headers==3.10.0
@@ -59,5 +50,11 @@ python-dotenv
 python-json-logger==2.0.4
 geoip2==4.6.0
 
+# Data Handling
+pandas==2.0.3  # Use the latest stable version
+pydantic==1.10.9  # Use the latest stable version
 
+# AI
+langchain==0.2.6
+langchain_groq==0.1.6
 

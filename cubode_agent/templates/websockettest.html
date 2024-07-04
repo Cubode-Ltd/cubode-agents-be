@@ -26,7 +26,10 @@
             var messagesDiv = document.getElementById('messages');
             if (data.message) {
                 // Display the received message
-                messagesDiv.innerHTML += '<p>Received message with status: ' + data.status + "Message data: " + data.message  + '</p>';
+                messagesDiv.innerHTML += '<p>Received message with status: ' + data.status +'</br>';
+
+                messagesDiv.innerHTML += '<p>Message data: ' + data.message +'</br>';
+
             } else if (data.time) {
                 // Display the received time
                 messagesDiv.innerHTML += '<p>Server time: ' + data.time + '</p>';

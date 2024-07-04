@@ -14,3 +14,11 @@ django-celery-results
 # WebSockets
 channels==4.1.0
 channels_redis==4.2.0
+
+# Data Handling
+pandas==2.0.3  # Use the latest stable version
+pydantic==1.10.9  # Use the latest stable version
+
+# AI
+langchain==0.2.6
+langchain_groq==0.1.6

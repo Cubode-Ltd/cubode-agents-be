@@ -30,7 +30,6 @@ class DataConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard("agent_tasks", self.channel_name)
 
-
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         if text_data_json.get('type') == 'ping':
@@ -44,16 +43,6 @@ class DataConsumer(AsyncWebsocketConsumer):
                     'message': json.dumps(message)
                 }
             )
-
-    # async def send_time(self):
-    #     while True:
-    #         await self.send(text_data=json.dumps({
-    #             'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    #         }))
-    #         await asyncio.sleep(2)
-
-    # async def send_data(self, message):
-    #     await self.send(text_data=json.dumps(message))
 
     async def agent_message(self, event):
         message = event['message']
