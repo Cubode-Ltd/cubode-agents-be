@@ -1,4 +1,4 @@
-version: "3.7"
+
 
 services:
   
@@ -11,6 +11,7 @@ services:
     container_name: agent_cubode_development
     volumes:
       - ./cubode_agent:/cubode_agent
+
     ports:
       - 8000:8000
     env_file:

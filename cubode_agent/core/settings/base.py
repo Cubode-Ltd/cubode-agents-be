@@ -21,7 +21,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "channels"]
+    "channels",
+    'core'
+]
 
 # MIDDLEWARE:
 MIDDLEWARE = [
@@ -32,6 +34,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    
 ]
 
 # CACHE
