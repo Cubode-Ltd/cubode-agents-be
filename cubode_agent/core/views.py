@@ -1,7 +1,10 @@
 from django.views import View
-from core.tasks import add, generate_web_component
+from core.tasks import generate_web_component #add
 from django.shortcuts import render
 import time
+import json
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 class MainView(View):
   def get(self,request):
@@ -34,28 +37,87 @@ class InferenceAI(View):
                         }
             time.sleep(1)
             task = generate_web_component.delay(metadata)  # start the data retrieval task 
-            return HttpResponse({'data': 'initialising', 'task_id': task.id}, status=200)     
+            return JsonResponse({'data': 'initialising', 'task_id': task.id}, status=200)     
         except Exception as e:
             return HttpResponse({'error': str(e)}, status=401)    
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            # Parse the JSON payload
+            data = json.loads(request.body)
+            hash_value = data.get('hash')
 
+            if not hash_value:
+                return JsonResponse({'error': 'Hash value is required'}, status=400)
 
+            # Process the hash value
+            # Add your logic to handle the hash value here
+            # For example, you might want to retrieve some data based on the hash
 
-def test_task(request):
-    try:
-        params = {
-            'x':10,
-            'y':5
-        }
-        time.sleep(5)
-        task = add.delay(params)  # start the data retrieval task 
-        return HttpResponse({'data': 'initialising', 'task_id': task.id}, status=200)     
-    except Exception as e:
-        return HttpResponse({'error': str(e)}, status=401)    
+            # For now, we'll just simulate a response
+            response_data = {'message': f'Hash {hash_value} received and processed'}
 
-def websocket_test(request):
-    try:
-        return render(request, "websockettest.html")
-    except Exception as e:
-        print(str(e))
-        return HttpResponse({'error': str(e)}, status=401)    
+            return JsonResponse(response_data, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+class WebSocketTest(View):
+    def get(self, request, *args, **kwargs):
+      try:
+          return render(request, "websockettest.html")
+      except Exception as e:
+          print(str(e))
+          return HttpResponse({'error': str(e)}, status=401)
+
+        
+
+# class TestTask(View):
+#   def get(self, request, *args, **kwargs):
+#      try:
+#          params = { #EXAMPLE ARGS
+#              'x':10,
+#              'y':5
+#          }
+#          task = add.delay(params)  # RUN THE TASK 
+#          return JsonResponse({'data': 'initialising', 'task_id': task.id}, status=200)     
+#      except Exception as e:
+#          return JsonResponse({'error': str(e)}, status=401)
+
+# def websocket_test(request):
+#     try:
+#         return render(request, "websockettest.html")
+#     except Exception as e:
+#         print(str(e))
+#         return HttpResponse({'error': str(e)}, status=401)    
+
+class HtmxTest(View):
+  def get(self,request):
+      return render(request,"echarts_example.html")
+
+# class ButtonClicked(View):
+#     @csrf_exempt
+
+#     def get(self, request):
+#         import random
+
+#         colors = [
+#         "#FF5733",  # Red-Orange
+#         "#33FF57",  # Lime Green
+#         "#3357FF",  # Blue
+#         "#F1C40F",  # Yellow
+#         "#9B59B6",  # Purple
+#         ]
+
+#         random_color = random.choice(colors)
+
+#         html_template = f"<div style='color: {random_color};'> HTMX working </div>"
+
+#         return HttpResponse(html_template)
+
+# # # class HtmxWebSocket(View):
+# # def index(request):
+# #     return render(request,"htmx_websocket_test.html")
+
 
