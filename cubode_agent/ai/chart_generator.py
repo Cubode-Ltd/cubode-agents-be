@@ -60,9 +60,15 @@ class ChartGenerator:
         self.instructions_template = prompts['chart_suggestor']['instructions']
         self.chart_options_template = prompts["chart_suggestor"]["chart_options"]
         self.input_template = prompts["chart_suggestor"]["new_input"]
+
+        #Load Web Component Templates
+        with open('./ai/webcomponents.yaml', 'r') as file:
+            webcomponents = yaml.safe_load(file)
+
+        self.wc_templates = webcomponents["web_components"]
         
         if auto:
-            self.result = self.generate_charts()
+            self.result = self.create_web_component()
 
     def create_model(self):
 
@@ -89,7 +95,6 @@ class ChartGenerator:
         
         return PydanticOutputParser(pydantic_object=Charts)
 
-    
     def generate_charts(self):
 
         prompt = self.create_prompts()
@@ -103,3 +108,31 @@ class ChartGenerator:
         node_out = chain.invoke({"input": input, 
                                 "format_output_instructions": self.create_output_parser().get_format_instructions()})
         return node_out
+    
+    def create_web_component(self):
+        
+        charts = self.generate_charts()
+
+        template = self.wc_templates.get(charts.chart_1.main_chart_type)
+
+        # template = template.format( #aggregation=charts.chart_1.aggregation,
+        #                             column_category=charts.chart_1.column1,
+        #                             column_values=charts.chart_1.column2,
+        #                             title=charts.chart_1.chart_title)
+        
+        template = template.format(
+            hash="",
+            filename="",
+            x_axis_label="x label",
+            y_axis_label="y label",
+            aggregation="Mean",
+            column_category="country",
+            column_values="points",
+            title="ActualTitle",
+            subtitle="Sub title text",
+            color_scale="Inferno",
+        )
+
+        print("TEMPLATE:    ", template)
+
+        return template

@@ -1,49 +1,46 @@
-# import json
-# from channels.generic.websocket import AsyncWebsocketConsumer
-
-# class DataConsumer(AsyncWebsocketConsumer):
-#     async def connect(self):
-#         await self.accept()
-
-#     async def disconnect(self, close_code):
-#         pass
-
-#     async def receive(self, text_data):
-#         text_data_json = json.loads(text_data)
-#         message = text_data_json['message']
-
-#         await self.send(text_data=json.dumps({
-#             'message': message
-#         }))
 import json
-from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer, WebsocketConsumer
 import asyncio
 from datetime import datetime
+from django.template.loader import get_template
+from django.utils.html import format_html
 
-class DataConsumer(AsyncWebsocketConsumer):
+from django.template import Context, Template
+
+
+class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        # self.user = self.scope['user']
-        # if self.user.is_authenticated: # Cookies session based authentication.
+        print(self.channel_name)
         await self.accept()
         await self.channel_layer.group_add("agent_tasks", self.channel_name) # Add to group to send messages later
 
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard("agent_tasks", self.channel_name)
-
-    async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        if text_data_json.get('type') == 'ping':
-            await self.send(text_data=json.dumps({'type': 'pong'}))
-        else:
-            message = text_data_json['message']
-            await self.channel_layer.group_send(
-                "chat",
-                {
-                    'type': 'agent_message',
-                    'message': json.dumps(message)
-                }
-            )
+        pass
 
     async def agent_message(self, event):
-        message = event['message']
-        await self.send(text_data=json.dumps(message))
+        
+        message = event['message']['message']
+        html = self.render_html(message)
+
+        # html = message
+        print("HTMLLLLLL:  ", html)
+
+        await self.send(text_data=html)
+    
+    def render_html(self, new_message):
+        template_string = """
+        <div id="dynamic-content-ws" hx-swap-oob="outerHTML">
+            {{ new_message|safe }}
+        <div>
+        """
+        template = Template(template_string)
+        context = Context({"new_message": new_message})
+        return template.render(context)
+
+        # t = format_html(new_message)
+        # return t
+    
+
+    #  <cb-container class="border-green-700" id="dynamic-content-ws" hx-swap-oob="outerHTML">
+    #         {{ new_message|safe }}
+    #     </cb-container>
