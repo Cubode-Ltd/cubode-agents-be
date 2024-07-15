@@ -1,6 +1,6 @@
 # Django
 Django==4.2.8
-
+django-cors-headers==3.14.0
 # Asynchronous Support & Async Django Rest Framework
 uvicorn[standard]
 

@@ -18,7 +18,7 @@ import json
 groq_api_key = os.environ.get("GROQ_API")
 
 @shared_task
-def generate_web_component(metadata: dict):
+def generate_web_component(metadata: dict, hash: str, file_name: str):
 
     model = {
             "name": "llama3-70b-8192",
@@ -26,8 +26,13 @@ def generate_web_component(metadata: dict):
             "temperature": 0.0
      }
 
-    charts = ChartGenerator(metadata=metadata, 
-                   model=model, auto=True)
+    #package file info
+    csv_file = {
+        "hash": hash,
+        "file_name": file_name
+    }
+    charts = ChartGenerator(csv_file=csv_file, metadata=metadata, 
+                            model=model, auto=True)
     
     message = {
     "status": "AI inference Complete", 

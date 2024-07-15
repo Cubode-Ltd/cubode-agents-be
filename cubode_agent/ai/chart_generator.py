@@ -31,11 +31,12 @@ class Charts(BaseModel):
         chart_3: SuggestedChart = Field(description="The third chart suggested")
 
 class ChartGenerator:
-    def __init__(self, metadata: dict, model: dict, auto: bool=False):
+    def __init__(self, csv_file: dict, metadata: dict, model: dict, auto: bool=False):
         """
         Initializes the Chart Generator instance.
 
         Args:
+            data (dict): Information of the data file from the front end
             metadata (dict): The netadata extracted from the uploaded dataset
             model (dict): details about the language model to use. Example:
                     {
@@ -46,13 +47,18 @@ class ChartGenerator:
                     }
             auto (bool, optional): Whether to automatically describe the data upon initialization. Defaults to False.
         """
-        #Set params
+        ## -- Set params -- ##
+        #Data
+        self.hash = csv_file["hash"]
+        self.filename = csv_file["file_name"]
         self.data = metadata
+
+        #LLM
         self.model = model["name"]
         self.temperature = model["temperature"]
         self.provider = model["provider"]
     
-        #Load prompt templates
+        #Prompts
         with open('./ai/prompts.yaml', 'r') as file:
             prompts = yaml.safe_load(file)
 
@@ -121,13 +127,13 @@ class ChartGenerator:
         #                             title=charts.chart_1.chart_title)
         
         template = template.format(
-            hash="",
-            filename="",
+            hash=self.hash,
+            filename=self.filename,
             x_axis_label="x label",
             y_axis_label="y label",
             aggregation="Mean",
             column_category="country",
-            column_values="points",
+            column_values="price",
             title="ActualTitle",
             subtitle="Sub title text",
             color_scale="Inferno",

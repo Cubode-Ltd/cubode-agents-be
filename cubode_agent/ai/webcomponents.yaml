@@ -1,6 +1,6 @@
 web_components:
   bar: >
-    <cb-echart-barplot
+    <cb-echart-barplot style="width: 960px; height: 540px; overflow: hidden;"
         hash="{hash}" 
         filename="{filename}" 
         x-axis-label="{x_axis_label}" 
