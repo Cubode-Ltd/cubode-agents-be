@@ -111,34 +111,36 @@ class ChartGenerator:
         
         chain = self.create_prompts() | self.create_model() | self.create_output_parser()
 
+        print("PROMPTS:   ", self.create_prompts())
+
         node_out = chain.invoke({"input": input, 
                                 "format_output_instructions": self.create_output_parser().get_format_instructions()})
         return node_out
     
     def create_web_component(self):
         
-        charts = self.generate_charts()
+        # charts = self.generate_charts()
 
-        template = self.wc_templates.get(charts.chart_1.main_chart_type)
+        # template = self.wc_templates.get(charts.chart_1.main_chart_type)
 
         # template = template.format( #aggregation=charts.chart_1.aggregation,
         #                             column_category=charts.chart_1.column1,
         #                             column_values=charts.chart_1.column2,
         #                             title=charts.chart_1.chart_title)
         
-        template = template.format(
-            hash=self.hash,
-            filename=self.filename,
-            x_axis_label="x label",
-            y_axis_label="y label",
-            aggregation="Mean",
-            column_category="country",
-            column_values="price",
-            title="ActualTitle",
-            subtitle="Sub title text",
-            color_scale="Inferno",
-        )
+        # template = template.format(
+        #     hash=self.hash,
+        #     filename=self.filename,
+        #     x_axis_label="x label",
+        #     y_axis_label="y label",
+        #     aggregation="Mean",
+        #     column_category="country",
+        #     column_values="price",
+        #     title="ActualTitle",
+        #     subtitle="Sub title text",
+        #     color_scale="Inferno",
+        # )
 
-        print("TEMPLATE:    ", template)
+        # print("TEMPLATE:    ", template)
 
-        return template
+        return 1

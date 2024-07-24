@@ -23,7 +23,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "channels",
     'core',
-    "corsheaders"
+    "corsheaders",
+    "users",
+    "rest_framework"
 ]
 
 # MIDDLEWARE:
@@ -68,7 +70,7 @@ CORS_ALLOW_HEADERS = [
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://localhost:6379/1',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
@@ -166,4 +168,12 @@ CHANNEL_LAYERS = {
             "hosts": [("redis", 6379)],
         },
     },
+}
+
+#REST
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
