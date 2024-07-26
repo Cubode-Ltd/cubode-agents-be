@@ -33,7 +33,14 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                config: path.resolve(__dirname, 'postcss.config.js'),
+              },
+            },
+          },
         ],
       },
     ],
@@ -78,10 +85,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
-],
-watchOptions: {
-  poll: 1000, // Check for changes every second
-  ignored: /node_modules/,
-},
-mode: 'development',
+  ],
+  watchOptions: {
+    poll: 1000, // Check for changes every second
+    ignored: /node_modules/,
+  },
+  mode: 'development',
 };
