@@ -39,6 +39,7 @@ class VerifyEmailAPIView(APIView):
 class RegisterAPIView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
+        print("\n\n\n", request.data, " \n\n")
         if serializer.is_valid():
             user = serializer.save()
             token = serializer.get_verification_token(user)
