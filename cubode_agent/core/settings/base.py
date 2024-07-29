@@ -15,8 +15,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # 'webpack_loader',
-    'core'
+
+    "rest_framework",
+    "rest_framework_simplejwt",
+
+    "core",
+    "authentication"
 ]
 
 # MIDDLEWARE:
@@ -99,3 +103,11 @@ DEBUG = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+EMAIL_SENDER = os.environ.get("EMAIL_SENDER", "support@cubode.com")
+DEFAULT_FROM_EMAIL = "support@cubode.com"
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+ANYMAIL = {
+    "SENDGRID_API_KEY": os.environ.get("EMAIL_API_SENDGRID"),
+    "SENDGRID_GENERATE_MESSAGE_ID": True,
+}

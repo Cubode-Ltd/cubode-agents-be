@@ -10,6 +10,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             BASE_DIR / 'assets' / 'html',
+            BASE_DIR / 'assets' / 'templates',
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -28,3 +29,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
