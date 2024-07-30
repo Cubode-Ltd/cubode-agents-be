@@ -46,14 +46,17 @@ class RegisterAPIView(APIView):
                 reverse('verify-email', kwargs={'token': token})
             )
 
+            context = {
+                'username': user.email,
+                'verification_url': verification_url,
+            }
+
             send_template_email(
-                template="templates/registration_email.html",
+                template_name="registration_email.html",
                 to=user.email,
-                subj="Cubode - Verify your Email",
-                template_name=user.username,
-                template_url_verification=verification_url,
+                subject="Cubode - Verify your Email",
+                context=context,
                 sender=settings.EMAIL_SENDER,
-                fail_silently=False,
             )
 
             return Response({
