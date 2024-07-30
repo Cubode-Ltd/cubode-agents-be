@@ -59,11 +59,9 @@ class RegisterAPIView(APIView):
                 sender=settings.EMAIL_SENDER,
             )
 
-            return Response({
-                'message': "Registration successful. Please check your email for verification."},
+            return Response({'message': "Registration successful. Please check your email for verification."},
                 status=status.HTTP_201_CREATED)
 
-        print(serializer.errors)
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST)

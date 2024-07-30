@@ -10,13 +10,11 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('email', 'username', 'is_staff', 'is_superuser', 'is_active')
     list_filter = ('is_superuser', 'is_staff', 'is_active')
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('username',)}),
+        (_('Personal info'), {'fields': ('email', 'password', 'username', 'slug')}),
+        (_('Important dates'), {'fields': ('last_login', 'created_at')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
+    readonly_fields = ('last_login', 'created_at', 'slug', 'email')  # Make 'last_login' and 'created_at' read-only
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -27,7 +25,6 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
 
-# Register the new UserAdmin...
+
 admin.site.register(User, UserAdmin)
-# Unregister the Group model from admin as it is not used
 admin.site.unregister(Group)
