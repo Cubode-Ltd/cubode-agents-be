@@ -1,18 +1,19 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils.crypto import get_random_string
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
-
-        if not username:
-            raise TypeError("Users should have a username")
+    def create_user(self, email, username=None, password=None):
 
         if not email:
             raise TypeError("Users should have a email")
+
+        if username is None:
+            username = self.generate_username_from_email(email)
 
         user = self.model(username=username, email=self.normalize_email(email))
         user.set_password(password)
@@ -24,12 +25,19 @@ class UserManager(BaseUserManager):
         if password is None:
             raise TypeError("Password should not be none")
 
-        user = self.create_user(username, email, password)
+        user = self.create_user(email, username, password)
         user.is_superuser = True
         user.is_staff = True
         user.is_verified = True
         user.save()
         return user
+
+    def generate_username_from_email(self, email):
+        base_username = email.split('@')[0]
+        username = base_username
+        while User.objects.filter(username=username).exists():
+            username = f"{base_username}_{get_random_string(4)}"
+        return username
 
 
 class User(AbstractBaseUser, PermissionsMixin):

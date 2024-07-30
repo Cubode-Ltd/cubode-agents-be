@@ -38,6 +38,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = "core.urls"
 LOGIN_URL = "home"
 LOGIN_REDIRECT_URL = "home"
+AUTH_USER_MODEL = "authentication.User"
+
 
 # DEVELOPMENT SERVER
 WSGI_APPLICATION = "core.wsgi.application"
@@ -78,32 +80,7 @@ USE_L10N = True
 USE_TZ = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
-DEBUG = True
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
+# EMAIL
 EMAIL_SENDER = os.environ.get("EMAIL_SENDER", "support@cubode.com")
 DEFAULT_FROM_EMAIL = "support@cubode.com"
 EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"

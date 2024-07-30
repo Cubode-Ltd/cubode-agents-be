@@ -39,7 +39,6 @@ class VerifyEmailAPIView(APIView):
 class RegisterAPIView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
-        print("\n\n\n", request.data, " \n\n")
         if serializer.is_valid():
             user = serializer.save()
             token = serializer.get_verification_token(user)
@@ -53,7 +52,7 @@ class RegisterAPIView(APIView):
                 subj="Cubode - Verify your Email",
                 template_name=user.username,
                 template_url_verification=verification_url,
-                sender=settings.get('EMAIL_SENDER'),
+                sender=settings.EMAIL_SENDER,
                 fail_silently=False,
             )
 
@@ -61,6 +60,7 @@ class RegisterAPIView(APIView):
                 'message': "Registration successful. Please check your email for verification."},
                 status=status.HTTP_201_CREATED)
 
+        print(serializer.errors)
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST)
