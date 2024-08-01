@@ -6,7 +6,6 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = "changeThisSecretKeyInProd"
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(" ")
-DEBUG = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
