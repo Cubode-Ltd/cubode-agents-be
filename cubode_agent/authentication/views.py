@@ -12,17 +12,53 @@ from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
+from django.shortcuts import render
+from django.views import View
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication
 
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.tokens import UntypedToken
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 
-
 User = get_user_model()
+
+
+# Static Views
+class Registration(View):
+    def get(self, request):
+        return render(request, "register.html", {})
+
+
+class Login(View):
+    def get(self, request):
+        return render(request, "login.html", {})
+
+
+class RecoverPassword(View):
+    def get(self, request):
+        return render(request, "reset_password.html", {})
+
+
+# API Views
+class IsAuthenticatedView(APIView):
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            user_data = {
+                'username': request.user.username,
+                'email': request.user.email,
+                'is_authenticated': True,
+            }
+            return Response(user_data)
+        else:
+            return Response({'is_authenticated': False}, status=401)
 
 
 class VerifyEmailAPIView(APIView):

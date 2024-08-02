@@ -14,12 +14,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "rest_framework",
     "rest_framework_simplejwt",
-
     "core",
-    "authentication"
+    "authentication",
 ]
 
 # MIDDLEWARE:
@@ -38,6 +36,8 @@ ROOT_URLCONF = "core.urls"
 LOGIN_URL = "home"
 LOGIN_REDIRECT_URL = "home"
 AUTH_USER_MODEL = "authentication.User"
+
+APPEND_SLASH = True
 
 
 # DEVELOPMENT SERVER
