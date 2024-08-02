@@ -8,6 +8,7 @@ from authentication.views import (
     IsAuthenticatedView,
     RegisterAPIView,
     LoginAPIView,
+    LogoutAPIView,
     VerifyEmailAPIView,
     PasswordResetAPIView,
     PasswordResetConfirmAPIView,
@@ -21,8 +22,9 @@ urlpatterns = [
         r"^recover_password/?$", RecoverPassword.as_view(), name="recover-password"
     ),
     # API Views
-    path("api/register/", RegisterAPIView.as_view(), name="register"),
-    path("api/login/", LoginAPIView.as_view(), name="register"),
+    path("api/register/", RegisterAPIView.as_view(), name="register-api"),
+    path("api/login/", LoginAPIView.as_view(), name="login-api"),
+    path("api/logout/", LogoutAPIView.as_view(), name="logout-api"),
     path(
         "api/verify-email/<str:token>/",
         VerifyEmailAPIView.as_view(),

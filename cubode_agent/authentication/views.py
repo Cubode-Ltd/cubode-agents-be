@@ -2,11 +2,11 @@ from authentication.serializer import (
     RegisterSerializer,
     LoginSerializer,
     PasswordResetConfirmSerializer,
-    PasswordResetRequestSerializer)
+    PasswordResetRequestSerializer,
+)
 from authentication.utils import send_template_email
 
-from django.contrib.auth import login
-from django.contrib.auth import get_user_model
+from django.contrib.auth import login, logout, get_user_model
 from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
@@ -52,32 +52,32 @@ class IsAuthenticatedView(APIView):
     def get(self, request):
         if request.user.is_authenticated:
             user_data = {
-                'username': request.user.username,
-                'email': request.user.email,
-                'is_authenticated': True,
+                "username": request.user.username,
+                "email": request.user.email,
+                "is_authenticated": True,
             }
             return Response(user_data)
         else:
-            return Response({'is_authenticated': False}, status=401)
+            return Response({"is_authenticated": False}, status=401)
 
 
 class VerifyEmailAPIView(APIView):
     def get(self, request, token):
         try:
             UntypedToken(token)
-            user_id = UntypedToken(token)['user_id']
+            user_id = UntypedToken(token)["user_id"]
             user = User.objects.get(id=user_id)
             if not user.is_active:
                 user.is_active = True
                 user.save()
-            return Response({
-                'message': 'Email successfully verified.'
-                }, status=status.HTTP_200_OK)
+            return Response(
+                {"message": "Email successfully verified."}, status=status.HTTP_200_OK
+            )
 
         except (InvalidToken, TokenError):
-            return Response({
-                'error': 'Invalid token'
-                }, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 class RegisterAPIView(APIView):
@@ -87,12 +87,12 @@ class RegisterAPIView(APIView):
             user = serializer.save()
             token = serializer.get_verification_token(user)
             verification_url = request.build_absolute_uri(
-                reverse('verify-email', kwargs={'token': token})
+                reverse("verify-email", kwargs={"token": token})
             )
 
             context = {
-                'username': user.email,
-                'verification_url': verification_url,
+                "username": user.email,
+                "verification_url": verification_url,
             }
 
             send_template_email(
@@ -103,54 +103,102 @@ class RegisterAPIView(APIView):
                 sender=settings.EMAIL_SENDER,
             )
 
-            return Response({'message': "Registration successful. Please check your email for verification."},
-                status=status.HTTP_201_CREATED)
+            return Response(
+                {
+                    "message": "Registration successful. Please check your email for verification."
+                },
+                status=status.HTTP_201_CREATED,
+            )
 
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginAPIView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.validated_data['user']
+            user = serializer.validated_data["user"]
             login(request, user)
 
             refresh = RefreshToken.for_user(user)
             access_token = str(refresh.access_token)
 
-            return Response({
-                'message': 'Login successful',
-                'user': {
-                    'email': user.email,
-                    'username': user.username,
+            response = Response(
+                {
+                    "message": "Login successful",
+                    "user": {
+                        "email": user.email,
+                        "username": user.username,
+                    },
                 },
-                'refresh': str(refresh),
-                'access': access_token,
-            }, status=status.HTTP_200_OK)
+                status=status.HTTP_200_OK,
+            )
+
+            response.set_cookie(
+                key="refresh_token",
+                value=str(refresh),
+                httponly=True,
+                secure=True,
+                samesite="Lax",
+                max_age=60 * 60 * 24 * 7,
+            )
+
+            response.set_cookie(
+                key="access_token",
+                value=access_token,
+                httponly=True,
+                secure=True,
+                samesite="Lax",
+                max_age=60 * 60 * 24,
+            )
+
+            return response
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            logout(request)
+            refresh_token = request.COOKIES.get("refresh_token")
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+
+            # Clear the JWT tokens from cookies
+            response = Response(
+                {"message": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT
+            )
+            response.delete_cookie("refresh_token")
+            response.delete_cookie("access_token")
+
+            return response
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PasswordResetAPIView(APIView):
     def post(self, request):
         serializer = PasswordResetRequestSerializer(data=request.data)
         if serializer.is_valid():
-            email = serializer.validated_data['email']
+            email = serializer.validated_data["email"]
             user = User.objects.get(email=email)
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
 
             reset_url = request.build_absolute_uri(
-                reverse('password-reset-confirm',
-                        kwargs={'uidb64': uid, 'token': token})
+                reverse(
+                    "password-reset-confirm", kwargs={"uidb64": uid, "token": token}
+                )
             )
 
             context = {
-                'username': user.email,
-                'reset_url': reset_url,
+                "username": user.email,
+                "reset_url": reset_url,
             }
 
             send_template_email(
@@ -161,13 +209,12 @@ class PasswordResetAPIView(APIView):
                 sender=settings.EMAIL_SENDER,
             )
 
-            return Response({
-                'message': 'Password reset link has been sent to your email.'},
-                status=status.HTTP_200_OK)
+            return Response(
+                {"message": "Password reset link has been sent to your email."},
+                status=status.HTTP_200_OK,
+            )
 
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PasswordResetConfirmAPIView(APIView):
@@ -181,14 +228,16 @@ class PasswordResetConfirmAPIView(APIView):
                 user = None
 
             if user is not None and default_token_generator.check_token(user, token):
-                user.set_password(serializer.validated_data['new_password'])
+                user.set_password(serializer.validated_data["new_password"])
                 user.save()
-                return Response({
-                    'message': 'Password has been reset successfully.'},
-                    status=status.HTTP_200_OK)
+                return Response(
+                    {"message": "Password has been reset successfully."},
+                    status=status.HTTP_200_OK,
+                )
             else:
-                return Response({
-                    'error': 'Invalid token or user ID.'},
-                    status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {"error": "Invalid token or user ID."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
