@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "core",
     "authentication",
 ]
@@ -86,4 +87,12 @@ EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
 ANYMAIL = {
     "SENDGRID_API_KEY": os.environ.get("EMAIL_API_SENDGRID"),
     "SENDGRID_GENERATE_MESSAGE_ID": True,
+}
+
+# SIMPLE_JWT
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=300),
+    "BLACKLIST_AFTER_ROTATION": True,
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "SIGNING_KEY": os.environ.get("SECRET_KEY_JWT"),
 }

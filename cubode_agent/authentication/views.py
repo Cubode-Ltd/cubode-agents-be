@@ -178,6 +178,11 @@ class LogoutAPIView(APIView):
             return response
 
         except Exception as e:
+            import traceback
+
+            trace = traceback.format_exc()
+            print(trace)
+
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
