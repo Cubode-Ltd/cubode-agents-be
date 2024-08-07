@@ -1,0 +1,20 @@
+FROM python:3.9.14-slim-bullseye
+
+# set work directory
+WORKDIR /cubode_agent
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install Packages
+RUN apt-get -y update && apt-get -y install gcc libffi-dev python3 libmagic1 graphviz graphviz-dev
+
+# Dependencies
+RUN pip install --upgrade pip
+COPY ./docker/requirements.celery.txt .
+RUN pip install -r requirements.celery.txt
+
+# # Project copy
+# COPY ./manage.py /cubode/
+COPY ./core /cubode_agent/core

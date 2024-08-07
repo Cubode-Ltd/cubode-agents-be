@@ -1,0 +1,40 @@
+web_components:
+  bar: >
+    <cb-echart-barplot style="width: 960px; height: 540px; overflow: hidden;"
+        hash="{hash}" 
+        filename="{filename}" 
+        x-axis-label="{x_axis_label}" 
+        y-axis-label="{y_axis_label}" 
+        aggregation="{aggregation}" 
+        column-category="{column_category}" 
+        column-values="{column_values}" 
+        title="{title}" 
+        subtitle="{subtitle}" 
+        color-scale="{color_scale}">
+    </cb-echart-barplot>
+
+  pie: >
+    <cb-echart-lineplot 
+        line-plot-type="Basic" 
+        column-category="{column_category}" 
+        column-values="{column_values}" 
+        aggregation="{aggregation}" 
+        title="{title}" 
+        subtitle="{subtitle}" 
+        x-axis-label="" 
+        y-axis-label="" 
+        legend-position="right" 
+        line-style="solid" 
+        simbol-size="5" 
+        color-scale="{color_scale}" 
+        color-primary="#000000" 
+        color-secundary="#000000" 
+        line-type="normal" 
+        show-labels="false" 
+        hash="" 
+        filename=".csv">
+    </cb-echart-lineplot>
+
+  line: >
+     id="dynamic-content-ws" hx-swap-oob="outerHTML"
+

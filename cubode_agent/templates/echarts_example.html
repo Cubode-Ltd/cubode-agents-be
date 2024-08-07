@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page for HTMX Example</title>
+    <!-- Import HTMX-->
+    <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+</head>
+<body hx-ext="ws" ws-connect="ws://localhost:8000/ws/notifications/" hx-target="dynamic-content-ws">
+    
+    <h1>Example Web Page</h1>
+    <div id="dynamic-content-ws"> </div>
+</body>
+
+</html>
