@@ -1,0 +1,216 @@
+{
+    "check": {
+      "type": "function",
+      "function": {
+        "name": "run_check",
+        "description": "Checks whether it is possible to create the chart.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "is_possible": {
+              "type": "boolean",
+              "description": "Whether it is possible to create the chart"
+            }
+          },
+          "required": ["is_possible"]
+        }
+      }
+    },
+    "bar": {
+      "type": "function",
+      "function": {
+        "name": "create_bar_chart",
+        "description": "Creates a web component for a bar chart",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title of the chart."
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Subtitle of the chart."
+            },
+            "column_category": {
+              "type": "string",
+              "description": "Name of column on the X axis."
+            },
+            "column_values": {
+              "type": "string",
+              "description": "Name of column on the Y axis."
+            },
+            "aggregation": {
+              "type": "string",
+              "description": "Aggregation type to be used in the chart."
+            },
+            "xlabel": {
+              "type": "string",
+              "description": "The label used for the x axis."
+            },
+            "ylabel": {
+              "type": "string",
+              "description": "The label used for the y axis."
+            },
+            "colorspace": {
+              "type": "string",
+              "description": "The selected colorspace to display on the chart."
+            },
+            "show_background": {
+              "type": "string",
+              "description": "Whether or not to show or hide the background on the chart."
+            }
+          },
+          "required": ["title", "subtitle", "column_category", "column_values", "aggregation", "xlabel", "ylabel", "colorspace", "show_background"]
+        }
+      }
+    },
+    "line": {
+      "type": "function",
+      "function": {
+        "name": "create_line_chart",
+        "description": "Creates a web component for a line chart",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title of the chart."
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Subtitle of the chart."
+            },
+            "column_category": {
+              "type": "string",
+              "description": "Name of column on the X axis."
+            },
+            "column_values": {
+              "type": "string",
+              "description": "Name of column on the Y axis."
+            },
+            "aggregation": {
+              "type": "string",
+              "description": "Aggregation type to be used in the chart."
+            },
+            "xlabel": {
+              "type": "string",
+              "description": "The label used for the x axis."
+            },
+            "ylabel": {
+              "type": "string",
+              "description": "The label used for the y axis."
+            },
+            "colorspace": {
+              "type": "string",
+              "description": "The selected colorspace to display the markers on the chart."
+            },
+            "show_zoom": {
+              "type": "string",
+              "description": "Whether or not to show or hide the data zoom feature on the chart."
+            },
+            "line_color": {
+              "type": "string",
+              "description": "Line color in hex to use for the line on the chart."
+            },
+            "line_type": {
+              "type": "string",
+              "description": "Line type to use for the line on the chart."
+            },
+            "line_style": {
+              "type": "string",
+              "description": "Line style to use for the line on the chart."
+            }
+          },
+          "required": ["title", "subtitle", "column_category", "column_values", "aggregation", "xlabel", "ylabel", "colorspace", "show_zoom", "line_color", "line_type", "line_style"]
+        }
+      }
+    },
+    "scatter": {
+      "type": "function",
+      "function": {
+        "name": "create_scatter_chart",
+        "description": "Creates a web component for a scatter chart",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title of the chart."
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Subtitle of the chart."
+            },
+            "column_xaxis": {
+              "type": "string",
+              "description": "Name of column on the X axis."
+            },
+            "column_yaxis": {
+              "type": "string",
+              "description": "Name of column on the Y axis."
+            },
+            "xlabel": {
+              "type": "string",
+              "description": "The label used for the x axis."
+            },
+            "ylabel": {
+              "type": "string",
+              "description": "The label used for the y axis."
+            },
+            "colorspace": {
+              "type": "string",
+              "description": "The selected colorspace to display on the chart."
+            },
+            "show_zoom": {
+              "type": "string",
+              "description": "Whether or not to show or hide the data zoom feature on the chart."
+            }
+          },
+          "required": ["title", "subtitle", "column_xaxis", "column_yaxis", "xlabel", "ylabel", "colorspace", "show_zoom"]
+        }
+      }
+    },
+    "pie": {
+      "type": "function",
+      "function": {
+        "name": "create_pie_chart",
+        "description": "Creates a web component for a pie chart",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Title of the chart."
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Subtitle of the chart."
+            },
+            "column_category": {
+              "type": "string",
+              "description": "Name of column on the X axis."
+            },
+            "column_values": {
+              "type": "string",
+              "description": "Name of column on the Y axis."
+            },
+            "aggregation": {
+              "type": "string",
+              "description": "Aggregation type to be used in the chart."
+            },
+            "pie_type": {
+              "type": "string",
+              "description": "Type of pie chart used."
+            },
+            "colorspace": {
+              "type": "string",
+              "description": "The selected colorspace to display on the chart."
+            }
+          },
+          "required": ["title", "subtitle", "column_category", "column_values", "aggregation", "pie_type", "colorspace"]
+        }
+      }
+    }
+  
+  }
