@@ -1,0 +1,7 @@
+FROM nginx:1.21-alpine
+RUN rm /etc/nginx/conf.d/default.conf
+
+# FOR THE INIT CERTIFICATES
+COPY nginx_initial.stagging.conf /etc/nginx/conf.d
+# FOR RUN WHEN THE CERTIFICATES ARE ACHIVIED
+# COPY nginx_https.stagging.conf /etc/nginx/conf.d

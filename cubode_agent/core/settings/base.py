@@ -3,17 +3,13 @@ from pathlib import Path
 from datetime import timedelta
 from django.conf import settings
 
-# PATHS
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-print("BASE DIR: ", BASE_DIR)
+
 # SECURITY
 SECRET_KEY = "changeThisSecretKeyInProd"
-
-# ALLOWED HOSTS
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(" ")
 
-# APPS
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -21,9 +17,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "channels",
-    'core',
     "corsheaders"
+    "channels",
+
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+
+    "core",
+    "authentication",
+
 ]
 
 # MIDDLEWARE:
@@ -37,10 +40,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware"
 ]
-
-# CSRF_TRUSTED_ORIGINS = [
-# 'http://localhost:9000'
-# ]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -81,31 +80,12 @@ SESSION_CACHE_ALIAS = 'default'
 # ROOT URL
 ROOT_URLCONF = "core.urls"
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-STATICFILES_FINDERS = (
-'django.contrib.staticfiles.finders.FileSystemFinder',
-'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-
-)
-
 # LOGIN WEBPAGE
 LOGIN_URL = "home"
 LOGIN_REDIRECT_URL = "home"
+AUTH_USER_MODEL = "authentication.User"
+
+APPEND_SLASH = True
 
 
 # DEVELOPMENT SERVER
@@ -147,7 +127,7 @@ USE_L10N = True
 USE_TZ = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-#CELERY
+# CELERY
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -155,7 +135,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 
-#ASGI
+# ASGI
 ASGI_APPLICATION = 'cubode_agent.asgi.application'
 
 # CHANNELS
@@ -166,4 +146,21 @@ CHANNEL_LAYERS = {
             "hosts": [("redis", 6379)],
         },
     },
+}
+
+# EMAIL
+EMAIL_SENDER = os.environ.get("EMAIL_SENDER", "support@cubode.com")
+DEFAULT_FROM_EMAIL = "support@cubode.com"
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+ANYMAIL = {
+    "SENDGRID_API_KEY": os.environ.get("EMAIL_API_SENDGRID"),
+    "SENDGRID_GENERATE_MESSAGE_ID": True,
+}
+
+# SIMPLE_JWT
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=300),
+    "BLACKLIST_AFTER_ROTATION": True,
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "SIGNING_KEY": os.environ.get("SECRET_KEY_JWT"),
 }

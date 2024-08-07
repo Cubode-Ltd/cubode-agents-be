@@ -1,19 +1,30 @@
-# Django
+## Django Related, Async, DRF and AsyncDRF
 Django==4.2.8
 django-cors-headers==3.14.0
 # Asynchronous Support & Async Django Rest Framework
 uvicorn[standard]
+djangorestframework==3.15.2
+adrf==0.1.6
 
-# Redis
+
+## Redis
 django-redis==5.2.0
 
-# Celery Workers
+
+## Workers - Celery
 celery==5.3.6
 django-celery-results
 
-# WebSockets
+
+## WebSockets
 channels==4.1.0
 channels_redis==4.2.0
+
+
+## Authentication - JWT and Email
+djangorestframework-simplejwt==5.3.1
+django-anymail[sendgrid]
+
 
 # Data Handling
 pandas==2.0.3  # Use the latest stable version

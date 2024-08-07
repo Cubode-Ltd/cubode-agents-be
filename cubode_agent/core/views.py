@@ -1,12 +1,9 @@
 from django.views import View
 from core.tasks import generate_web_component #add
 from django.shortcuts import render
-import time
-import json
-from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
+
+
+    
 class MainView(View):
   def get(self,request):
       return render(request,"home.html")
