@@ -12,22 +12,27 @@ class MainView(View):
 class InferenceAI(View):
     def get(self, request, *args, **kwargs):
         try:
-            metadata = {
-                'Schema': ['country', 'description', 'designation', 'points', 'price', 'province', 'region_1', 'region_2', 'variety', 'winery'],
-                'Data Types': 'country         object\ndescription     object\ndesignation     object\npoints           int64\nprice          float64\nprovince        object\nregion_1        object\nregion_2        object\nvariety         object\nwinery          object\ndtype: object',
-                'Sample': [{
-                    'country': 'US',
-                    'description': 'This tremendous 100% varietal wine hails from Oakville and was aged over three years in oak. Juicy red-cherry fruit and a compelling hint of caramel greet the palate, framed by elegant, fine tannins and a subtle minty tone in the background. Balanced and rewarding from start to finish, it has years ahead of it to develop further nuance. Enjoy 2022–2030.',
-                    'designation': "Martha's Vineyard",
-                    'points': 96,
-                    'price': 235.0,
-                    'province': 'California',
-                    'region_1': 'Napa Valley',
-                    'region_2': 'Napa',
-                    'variety': 'Cabernet Sauvignon',
-                    'winery': 'Heitz'
-                }]
-            }
+            # metadata = {
+            #     'Schema': ['country', 'description', 'designation', 'points', 'price', 'province', 'region_1', 'region_2', 'variety', 'winery'],
+            #     'Data Types': 'country         object\ndescription     object\ndesignation     object\npoints           int64\nprice          float64\nprovince        object\nregion_1        object\nregion_2        object\nvariety         object\nwinery          object\ndtype: object',
+            #     'Sample': [{
+            #         'country': 'US',
+            #         'description': 'This tremendous 100% varietal wine hails from Oakville and was aged over three years in oak. Juicy red-cherry fruit and a compelling hint of caramel greet the palate, framed by elegant, fine tannins and a subtle minty tone in the background. Balanced and rewarding from start to finish, it has years ahead of it to develop further nuance. Enjoy 2022–2030.',
+            #         'designation': "Martha's Vineyard",
+            #         'points': 96,
+            #         'price': 235.0,
+            #         'province': 'California',
+            #         'region_1': 'Napa Valley',
+            #         'region_2': 'Napa',
+            #         'variety': 'Cabernet Sauvignon',
+            #         'winery': 'Heitz'
+            #     }]
+            # }
+            metadata= {
+                        'Data Types': {'Teacher Number': 'string', 'Absence Start Date': 'string', 'Absence End Date': 'string', 'Absence Type': 'string', 'Subject': 'string', 'Net Working Days': 'number'}, 
+                        'Sample': [{'Teacher Number': '04/41527', 'Absence Start Date': '30-Jan-24', 'Absence End Date': '30-Jan-24', 'Absence Type': 'Compassionate Paid', 'Subject': 'Art or Design', 'Net Working Days': 1}
+                                   ]
+                    }
             time.sleep(1)
             task = generate_web_component.delay(metadata, "X", "Y   ")  # start the data retrieval task 
             response = JsonResponse({'data': 'initialising', 'task_id': task.id}, status=200)
@@ -42,15 +47,14 @@ class InferenceAI(View):
             data = json.loads(request.body)
             hash_value = data.get('hash')
             filename_value = data.get('fileName')
+            metadata_value = data.get('metadata')
+            print('METADATA:    ', metadata_value)
 
             if not hash_value:
                 response = JsonResponse({'error': 'Hash value is required'}, status=400)
                 return self.add_cors_headers(response)
             
-            # response_data = {'message': f'Hash {hash_value} received and processed for file {filename_value}. Running AI Inference on this data file.'}
-
-            # response = JsonResponse(response_data, status=200)
-            return self.create_webcomponent(hash_value, filename_value)
+            return self.create_webcomponent(hash_value, filename_value, metadata_value)
         except json.JSONDecodeError:
             response = JsonResponse({'error': 'Invalid JSON payload'}, status=400)
             return self.add_cors_headers(response)
@@ -58,25 +62,8 @@ class InferenceAI(View):
             response = JsonResponse({'error': str(e)}, status=500)
             return self.add_cors_headers(response)
 
-    def create_webcomponent(self, hash, fileName):
+    def create_webcomponent(self, hash, fileName, metadata):
         try:
-            metadata = {
-                'Schema': ['country', 'description', 'designation', 'points', 'price', 'province', 'region_1', 'region_2', 'variety', 'winery'],
-                'Data Types': 'country         object\ndescription     object\ndesignation     object\npoints           int64\nprice          float64\nprovince        object\nregion_1        object\nregion_2        object\nvariety         object\nwinery          object\ndtype: object',
-                'Sample': [{
-                    'country': 'US',
-                    'description': 'This tremendous 100% varietal wine hails from Oakville and was aged over three years in oak. Juicy red-cherry fruit and a compelling hint of caramel greet the palate, framed by elegant, fine tannins and a subtle minty tone in the background. Balanced and rewarding from start to finish, it has years ahead of it to develop further nuance. Enjoy 2022–2030.',
-                    'designation': "Martha's Vineyard",
-                    'points': 96,
-                    'price': 235.0,
-                    'province': 'California',
-                    'region_1': 'Napa Valley',
-                    'region_2': 'Napa',
-                    'variety': 'Cabernet Sauvignon',
-                    'winery': 'Heitz'
-                }]
-            }
-            time.sleep(1)
             task = generate_web_component.delay(metadata, hash, fileName)  # start the data retrieval task 
             response = JsonResponse({'data': 'initialising', 'task_id': task.id}, status=200)
             return self.add_cors_headers(response)

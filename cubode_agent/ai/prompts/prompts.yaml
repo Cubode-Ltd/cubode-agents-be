@@ -1,0 +1,216 @@
+prompts: 
+  check:
+    base: > 
+      Given the following schema and a sample from a dataset.
+      -------------
+      
+      METADATA: 
+
+      ```
+      schema: {data_types}
+
+      sample: {sample}
+
+    chart: >
+      Is it possible to create a {chart_type} chart from any combination of columns?
+
+      Answer in True or False with Python style syntax only.
+  system: >
+    You are an assistant who will generate attributes for a web component.
+    The web component is a custom component that renders a data visualisation chart using the ECharts library.
+    The dataset that will be visualised in each chart will be presented to you using the datasets metadata.
+    The metadata consists of the datasets schema, a sample and the unique categories in each categorical column.
+    For plots that use categorical columns, ensure you select the best suited categorical column that maintains good visualisation for the end user.
+    For example, a column with 100 unique categories would reuslt in a cluttered chart for the user.
+  user: >
+    Here is the metadata you must use to generate the web components for the charts
+
+    -------------
+    
+    METADATA: 
+
+    ```
+    schema: {data_types}
+
+    sample: {sample}
+
+    unique categories: {unique_categories}
+    ```
+  charts:
+    base: >
+      INSTRUCTIONS: 
+      -------------
+      Generate attributes for a {chart_type} CHART from the data set with metadata denoted by triple backticks
+
+      Here are the attributes that you must generate:
+
+      ATTRIBUTES:
+
+      -------------
+
+      {attributes}
+
+      
+      Some attributes have options. Here are the options to choose from for certain attributes:
+    
+      ATTRIBUTE OPTIONS:
+
+      ------------
+
+      {options}
+
+      
+      Finally, here are conditions that you must abide by
+
+      CONDITIONS: 
+
+      ------------
+
+      {conditions} 
+    bar:
+      attributes: >
+        title: The generated title of the plot. 
+
+        subtitle: The generated subtitle of the plot.
+
+        column_category: The column from the dataset that is a category which will be on the x-axis.
+
+        column_values: The column that from the dataset that is a numerical which will be on the y-axis.
+
+        aggregation: The aggregation function applied to column-values.
+
+        xlabel: The label of the x axis.
+
+        ylabel: The label of the y axis.
+
+        colorspace: The colorscale applied to the chart.
+
+        show_background: Whether or not to show the background
+
+      options: >
+        column_category: The categorical columns presented in the metadata.
+
+        column_values: The numerical columns presented in the metadata.
+
+        aggregation: Sum, Mean, Min, Max.
+
+        colorspace: Viridis, YlGnBu, Inferno, Magma, Plasma, Warm, Cool,
+                    CubehelixDefault, BuGn, BuPu, GnBu, OrRd, PuBuGn, PuBu,
+                    PuRd, RdPu, YlGn, YlOrBr, YlOrRd, Turbo, Cividis,
+                    Rainbow, Sinebow, Blues, Greens, Greys, Purples, Reds,
+                    Spectral, RdYlGn, RdYlBu, RdGy, RdBu, PiYG, PRGn, PuOr, BrBG.
+        
+        show_background: show, hide
+    line: 
+      attributes: >
+        title: The generated title of the plot. 
+
+        subtitle: The generated subtitle of the plot.
+
+        column_category: The column from the dataset that is a category which will be on the x-axis.
+
+        column_values: The column that from the dataset that is a numerical which will be on the y-axis.
+
+        aggregation: The aggregation function applied to column-values.
+
+        xlabel: The label of the x axis.
+
+        ylabel: The label of the y axis.
+
+        colorspace: The colorscale applied to the chart.
+
+        show_zoom: Whether or not to show the data zoom feature
+
+        line_color: The color of the line for the line plot.
+
+        line_type: Type of line for the line plot.
+
+        line_style: Style of the line for the line plot   
+      options: >
+        column_category: The categorical columns presented in the metadata.
+
+        column_values: The numerical columns presented in the metadata.
+
+        aggregation: Sum, Mean, Min, Max.
+
+        colorspace: Viridis, YlGnBu, Inferno, Magma, Plasma, Warm, Cool,
+                    CubehelixDefault, BuGn, BuPu, GnBu, OrRd, PuBuGn, PuBu,
+                    PuRd, RdPu, YlGn, YlOrBr, YlOrRd, Turbo, Cividis,
+                    Rainbow, Sinebow, Blues, Greens, Greys, Purples, Reds,
+                    Spectral, RdYlGn, RdYlBu, RdGy, RdBu, PiYG, PRGn, PuOr, BrBG.
+        
+        show_zoom: show, hide
+
+        line_color: Any color represented in a hex format.
+
+        line_type: Normal, Smooth
+        
+        line_style: Solid, Dash, Dotted
+    scatter:
+      attributes: >
+        title: The generated title of the plot. 
+
+        subtitle: The generated subtitle of the plot.
+
+        column_xaxis: The column from the dataset that is numerical which will be on the x-axis.
+
+        column_yaxis: The column that from the dataset that is numerical which will be on the y-axis.
+
+        xlabel: The label of the x axis.
+
+        ylabel: The label of the y axis.
+
+        colorspace: The colorscale applied to the chart.
+
+        show_zoom: Whether or not to show the data zoom feature
+
+        line_type: Type of line for the line plot.
+
+        line_style: Style of the line for the line plot
+      options: >
+        column_xaxis: The categorical columns presented in the metadata.
+
+        column_yaxis: The numerical columns presented in the metadata.
+
+        colorspace: Viridis, YlGnBu, Inferno, Magma, Plasma, Warm, Cool,
+                    CubehelixDefault, BuGn, BuPu, GnBu, OrRd, PuBuGn, PuBu,
+                    PuRd, RdPu, YlGn, YlOrBr, YlOrRd, Turbo, Cividis,
+                    Rainbow, Sinebow, Blues, Greens, Greys, Purples, Reds,
+                    Spectral, RdYlGn, RdYlBu, RdGy, RdBu, PiYG, PRGn, PuOr, BrBG.
+        
+        show_zoom: show, hide
+    pie:
+      attributes: >
+        title: The generated title of the plot. 
+
+        subtitle: The generated subtitle of the plot.
+
+        column_category: The column from the dataset that is a category which will be on the x-axis.
+
+        column_values: The column that from the dataset that is a numerical which will be on the y-axis.
+
+        aggregation: The aggregation function applied to column-values.
+
+        colorspace: The colorscale applied to the chart.
+
+        pie_type: The type of pie chart used in the chart
+      options: >
+        column_category: The categorical columns presented in the metadata.
+
+        column_values: The numerical columns presented in the metadata.
+
+        aggregation: Sum, Count
+
+        colorspace: Viridis, YlGnBu, Inferno, Magma, Plasma, Warm, Cool,
+                    CubehelixDefault, BuGn, BuPu, GnBu, OrRd, PuBuGn, PuBu,
+                    PuRd, RdPu, YlGn, YlOrBr, YlOrRd, Turbo, Cividis,
+                    Rainbow, Sinebow, Blues, Greens, Greys, Purples, Reds,
+                    Spectral, RdYlGn, RdYlBu, RdGy, RdBu, PiYG, PRGn, PuOr, BrBG.
+        
+        pie_type: Basic, Ring, Half Ring, Rose
+  conditions: >    
+    Condition 1: Use the create_{chart_type}_chart function to create the web component.
+
+    Condition 2: Ensure you select the a categorical column that doesnt have very very high unique categories.
+
+   
