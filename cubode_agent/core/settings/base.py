@@ -4,6 +4,7 @@ from datetime import timedelta
 from django.conf import settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+DEVELOPMENT = False
 
 # SECURITY
 SECRET_KEY = "changeThisSecretKeyInProd"
@@ -18,6 +19,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "channels",
+    "storages",
 
     "rest_framework",
     "rest_framework_simplejwt",
