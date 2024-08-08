@@ -43,7 +43,7 @@ AWS_QUERYSTRING_EXPIRE = 300
 # CLOUD FRONT
 AWS_S3_CLOUDFRONT_DOMAIN = os.environ.get("AWS_S3_CLOUDDOMAIN", "")
 AWS_S3_CUSTOM_DOMAIN = AWS_S3_CLOUDFRONT_DOMAIN + AWS_STORAGE_BUCKET_NAME
-AWS_CLOUDFRONT_KEY_ID = os.environ.get("AWS_CLOUDFRONT_KEY_ID","").strip()
+AWS_CLOUDFRONT_KEY_ID = os.environ.get("AWS_CLOUDFRONT_KEY_ID", "").strip()
 AWS_CLOUDFRONT_KEY = os.environ.get("AWS_CLOUDFRONT_KEY", "").replace("\\n", "\n").encode('ascii').strip()
 
 # Static files (CSS, JavaScript, Images)
