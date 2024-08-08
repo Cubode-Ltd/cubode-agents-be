@@ -155,7 +155,6 @@ class ChartComponentGenerator():
         messages = self.build_messages("You are a helpful assistant", check_prompt)
         response_tool_calls = self.inference(check_tool, messages)
 
-        print('TOOL RESPONSE:  ', response_tool_calls)
         for tool_call in response_tool_calls:
             function_to_call = run_check
             function_args = json.loads(tool_call.function.arguments)
@@ -189,8 +188,6 @@ class ChartComponentGenerator():
             chart_check_prompt = chart_check_prompt.format(chart_type=chart)
             check_prompt = base_check_prompt + chart_check_prompt
             is_possible = self.run_check_tool(check_prompt, [self.tool_definitions['check']])
-            print(chart)
-            print("IS POSSIBLE: ", is_possible)
 
             if is_possible:
                 
@@ -214,8 +211,6 @@ class ChartComponentGenerator():
                         func_args = json.loads(tool_call.function.arguments)
                         func_out = self.run_tool_strategy(available_strategies, func_name, func_args)
                         responses[chart][f'toolcall{i}_result'] = json.loads(func_out)['response']
-
-                print("RESPONSES:  ", responses)  
 
         return responses
         

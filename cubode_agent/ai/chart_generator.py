@@ -139,6 +139,4 @@ class ChartGenerator:
             color_scale="Inferno",
         )
 
-        print("TEMPLATE:    ", template)
-
         return template

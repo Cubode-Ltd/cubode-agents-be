@@ -21,10 +21,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         
         message = event['message']['message']
         html = self.render_html(message)
-
-        # html = message
-        print("HTMLLLLLL:  ", html)
-
+        
         await self.send(text_data=html)
 
     def render_html(self, new_message):

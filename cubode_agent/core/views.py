@@ -51,7 +51,6 @@ class InferenceAI(View):
             hash_value = data.get('hash')
             filename_value = data.get('fileName')
             metadata_value = data.get('metadata')
-            print('METADATA:    ', metadata_value)
 
             if not hash_value:
                 response = JsonResponse({'error': 'Hash value is required'}, status=400)
