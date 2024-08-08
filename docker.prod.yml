@@ -1,0 +1,61 @@
+
+
+services:
+  
+  web:
+    build:
+      context: ./cubode_agent
+      dockerfile: ./docker/Dockerfile.prod
+    command: uvicorn core.asgi:application --host 0.0.0.0 --port 8000 --reload --reload-include '*.py' --reload-include '*.html'
+    restart: always
+    container_name: graph_agent_cubode
+    volumes:
+      - ./cubode_agent:/cubode_agent
+
+    expose:
+      - 8000
+    env_file:
+      - ./cubode_agent/docker/.env.prod
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings.production
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: agent_cubode_redis
+
+  celery:
+    container_name: agent_cubode_celery
+    build:
+      context: ./cubode_agent
+      dockerfile: ./docker/Dockerfile.celery
+    command: celery --app=core worker -l INFO
+    volumes:
+      - ./cubode_agent:/cubode_agent
+    #   - ./cubode/resources/webtemplates/development:/cubode/resources/webtemplates/development
+    env_file:
+      - ./cubode_agent/docker/.env.celery
+    depends_on:
+      - redis
+      - web
+  
+  nginx:
+    build:
+      context: ./server/nginx
+      dockerfile: ./Dockerfile.production
+    restart: unless-stopped
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /tmp/acme_challenge:/tmp/acme_challenge
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - web
+
+volumes:
+  static_volume:
+  media_volume:
