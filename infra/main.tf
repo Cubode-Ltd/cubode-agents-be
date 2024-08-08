@@ -19,12 +19,6 @@ resource "aws_s3_bucket" "graph_cubode_static_bucket" {
   }
 }
 
-# Use aws_s3_bucket_acl to set the ACL
-resource "aws_s3_bucket_acl" "graph_cubode_static_bucket_acl" {
-  bucket = aws_s3_bucket.graph_cubode_static_bucket.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_versioning" "graph_cubode_static_bucket_versioning" {
   bucket = aws_s3_bucket.graph_cubode_static_bucket.bucket
 
@@ -286,4 +280,27 @@ resource "aws_s3_bucket_policy" "graph_cubode_bucket_policy" {
 }
 
 # --- 5. Outputs
+# S3 Bucket Name
+output "s3_bucket_name" {
+  value = aws_s3_bucket.graph_cubode_static_bucket.bucket
+}
 
+# CloudFront Domain Name
+output "cloudfront_domain_name" {
+  value = aws_cloudfront_distribution.graph_cubode_distribution.domain_name
+}
+
+# IAM Instance Profile Name (if needed)
+output "iam_instance_profile_name" {
+  value = aws_iam_instance_profile.graph_cubode_s3_access_profile.name
+}
+
+# CloudFront Origin Access Identity
+output "cloudfront_oai" {
+  value = aws_cloudfront_origin_access_identity.graph_cubode_oai.cloudfront_access_identity_path
+}
+
+# CloudFront Origin Access Identity ARN (if needed)
+output "cloudfront_oai_arn" {
+  value = aws_cloudfront_origin_access_identity.graph_cubode_oai.iam_arn
+}
