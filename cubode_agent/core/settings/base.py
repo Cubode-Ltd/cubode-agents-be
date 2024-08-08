@@ -5,7 +5,7 @@ from django.conf import settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
+print("base dir: ", BASE_DIR)
 # SECURITY
 SECRET_KEY = "changeThisSecretKeyInProd"
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(" ")
@@ -17,7 +17,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "corsheaders"
+    "corsheaders",
     "channels",
 
     "rest_framework",

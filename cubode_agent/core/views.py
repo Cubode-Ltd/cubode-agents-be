@@ -1,6 +1,10 @@
 from django.views import View
 from core.tasks import generate_web_component #add
 from django.shortcuts import render
+import json
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 
     
@@ -33,7 +37,6 @@ class InferenceAI(View):
                         'Sample': [{'Teacher Number': '04/41527', 'Absence Start Date': '30-Jan-24', 'Absence End Date': '30-Jan-24', 'Absence Type': 'Compassionate Paid', 'Subject': 'Art or Design', 'Net Working Days': 1}
                                    ]
                     }
-            time.sleep(1)
             task = generate_web_component.delay(metadata, "X", "Y   ")  # start the data retrieval task 
             response = JsonResponse({'data': 'initialising', 'task_id': task.id}, status=200)
             return self.add_cors_headers(response)
