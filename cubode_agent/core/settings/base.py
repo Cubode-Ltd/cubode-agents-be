@@ -147,6 +147,26 @@ CHANNEL_LAYERS = {
     },
 }
 
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            BASE_DIR / 'assets' / 'html',
+            BASE_DIR / 'assets' / 'templates',
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
 # EMAIL
 EMAIL_SENDER = os.environ.get("EMAIL_SENDER", "support@cubode.com")
 DEFAULT_FROM_EMAIL = "support@cubode.com"

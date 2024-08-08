@@ -1,16 +1,18 @@
-from django.views import View
-from core.tasks import generate_web_component #add
 from django.shortcuts import render
-import json
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.views import View
+
+from core.tasks import generate_web_component
 
 
-    
+
 class MainView(View):
   def get(self,request):
-      return render(request,"home.html")
+      return render(request,"index.html")
+
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class InferenceAI(View):
