@@ -5,6 +5,7 @@ django-cors-headers==3.14.0
 uvicorn[standard]
 djangorestframework==3.15.2
 adrf==0.1.6
+django-htmx==1.17.2
 
 
 ## Redis

@@ -18,14 +18,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "channels",
-
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
-
     "core",
     "authentication",
-
+    "django_htmx"
 ]
 
 # MIDDLEWARE:
@@ -37,7 +35,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware"
+    "corsheaders.middleware.CorsMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
+
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
