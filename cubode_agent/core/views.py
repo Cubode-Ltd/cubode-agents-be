@@ -3,7 +3,10 @@ from core.tasks import generate_web_component #add
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+import time
+import json
+
 
     
 class MainView(View):
