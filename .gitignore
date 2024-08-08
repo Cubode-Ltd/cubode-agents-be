@@ -129,3 +129,5 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+infra/keys/cloudfront_public_key.pem
+infra/keys/cloudfront_private_key.pem

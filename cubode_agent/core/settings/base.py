@@ -5,7 +5,6 @@ from django.conf import settings
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
 # SECURITY
 SECRET_KEY = "changeThisSecretKeyInProd"
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(" ")
