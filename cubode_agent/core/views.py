@@ -3,10 +3,32 @@ from core.tasks import generate_web_component #add
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
 from django.http import JsonResponse, HttpResponse
 import time
 import json
 
+@csrf_exempt
+def subscribe(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        
+        if email:
+            try:
+                send_mail(
+                    'Subject - Cubode Agent is here',
+                    'Message - Hello you have been invited from one of our user to subscribe with us and try the power of AI',
+                    'castelli1987.dc@gmail.com',  # Use the same email as EMAIL_HOST_USER
+                    [email],
+                    fail_silently=False,
+                )
+                return JsonResponse({'status': 'success'}, status=200)
+            except Exception as e:
+                return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid email'}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
 
     
 class MainView(View):
