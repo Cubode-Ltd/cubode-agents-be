@@ -123,6 +123,21 @@ resource "aws_iam_instance_profile" "graph_cubode_s3_access_profile" {
   role = aws_iam_role.graph_cubode_s3_access_role.name
 }
 
+# Create IAM access key for the s3_ec2_user
+resource "aws_iam_access_key" "s3_ec2_user_access_key" {
+  user = aws_iam_user.s3_ec2_user.name
+}
+
+# Output the Access Key ID and Secret Access Key
+output "s3_ec2_access_key_id" {
+  value = aws_iam_access_key.s3_ec2_user_access_key.id
+}
+
+output "s3_ec2_secret_access_key" {
+  value     = aws_iam_access_key.s3_ec2_user_access_key.secret
+  sensitive = true
+}
+
 # --- 3.- EC2
 resource "aws_key_pair" "graph_cubode_key" {
   key_name   = "${var.instance_name}-key"
@@ -271,6 +286,14 @@ resource "aws_s3_bucket_policy" "graph_cubode_bucket_policy" {
         Effect = "Allow",
         Principal = {
           AWS = aws_cloudfront_origin_access_identity.graph_cubode_oai.iam_arn
+        },
+        Action   = "s3:GetObject",
+        Resource = "${aws_s3_bucket.graph_cubode_static_bucket.arn}/*"
+      },
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "*"
         },
         Action   = "s3:GetObject",
         Resource = "${aws_s3_bucket.graph_cubode_static_bucket.arn}/*"
