@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from core.views import MainView
+import os 
 
 urlpatterns = [
     
@@ -18,8 +19,5 @@ urlpatterns = [
     path("htmx_socket/", HtmxTest.as_view(), name="HtmxTest")
 ]
 
-urlpatterns #+= htmx_urlpatterns
-
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-

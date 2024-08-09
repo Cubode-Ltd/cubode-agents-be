@@ -50,9 +50,26 @@ AWS_CLOUDFRONT_KEY = os.environ.get("AWS_CLOUDFRONT_KEY", "").replace("\\n", "\n
 # Static files (CSS, JavaScript, Images)
 STATIC_LOCATION = "static"
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'core.storage_backends.StaticRootS3Boto3Storage'
+
+
+# Define the CSS files storage explicitly
+STATIC_ROOT = BASE_DIR / "staticfiles"  # This is where CSS files will be collected
+CSS_FILE_STORAGE = 'core.storage_backends.CSSFileStorage'
+CSS_STATIC_URL = '/static/css/'
+
 
 # Media files
 PUBLIC_MEDIA_LOCATION = "media"
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Define a specific storage backend for CSS
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]

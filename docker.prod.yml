@@ -1,5 +1,4 @@
 services:
-  
   web:
     build:
       context: ./cubode_agent
@@ -9,7 +8,7 @@ services:
     container_name: graph_agent_cubode
     volumes:
       - ./cubode_agent:/cubode_agent
-
+      - static_volume:/cubode_agent/staticfiles
     expose:
       - 8000
     env_file:
@@ -31,7 +30,6 @@ services:
     command: celery --app=core worker -l INFO
     volumes:
       - ./cubode_agent:/cubode_agent
-    #   - ./cubode/resources/webtemplates/development:/cubode/resources/webtemplates/development
     env_file:
       - ./cubode_agent/docker/.env.celery
     depends_on:
@@ -44,8 +42,8 @@ services:
       dockerfile: ./Dockerfile.production
     restart: unless-stopped
     volumes:
-      - static_volume:/home/app/web/staticfiles
-      - media_volume:/home/app/web/mediafiles
+      - static_volume:/cubode_agent/staticfiles
+      - media_volume:/cubode_agent/media
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /tmp/acme_challenge:/tmp/acme_challenge
     ports:
