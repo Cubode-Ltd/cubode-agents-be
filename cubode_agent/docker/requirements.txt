@@ -25,6 +25,11 @@ channels_redis==4.2.0
 djangorestframework-simplejwt==5.3.1
 django-anymail[sendgrid]
 
+# Data
+boto3==1.22.4
+django-storages==1.12.3
+cryptography
+rsa
 
 # Data Handling
 pandas==2.0.3  # Use the latest stable version

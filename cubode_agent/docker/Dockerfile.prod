@@ -1,0 +1,23 @@
+FROM python:3.9.14-slim-bullseye
+
+# set work directory
+WORKDIR /cubode_agent
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install Packages
+RUN apt-get -y update && apt-get -y install nano
+
+# Install Requirements
+COPY ./docker/requirements.txt .
+RUN pip install -r requirements.txt
+
+# create superuser
+ENV DJANGO_SETTINGS_MODULE=core.settings.development
+
+COPY ./docker/entrypoint.sh  /cubode_agent/docker/entrypoint.sh
+COPY ./init.py  ./init.py
+RUN chmod +x ./docker/entrypoint.sh
+ENTRYPOINT ["/cubode_agent/docker/entrypoint.sh"]

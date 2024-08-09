@@ -16,6 +16,12 @@ django-htmx==1.17.2
 celery==5.3.6
 django-celery-results
 
+# Data
+boto3==1.22.4
+django-storages==1.12.3
+cryptography
+rsa
+
 # WebSockets
 channels==4.1.0
 channels_redis==4.2.0
